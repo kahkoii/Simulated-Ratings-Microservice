@@ -1,0 +1,26 @@
+{
+  "name": "eti-assignment2",
+  "version": "1.0.0",
+  "description": "ETI Assignment 2 Task 3.9: Rating and Comments Dashboard for Students",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kahkoii/ETI-Assignment2.git"
+  },
+  "author": "Swee Kah Ho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kahkoii/ETI-Assignment2/issues"
+  },
+  "homepage": "https://github.com/kahkoii/ETI-Assignment2#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

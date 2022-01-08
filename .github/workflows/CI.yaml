@@ -1,0 +1,20 @@
+name: NodeJS Server CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  code-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: ESLint Test
+        run: yarn eslint .

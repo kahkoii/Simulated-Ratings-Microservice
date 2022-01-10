@@ -57,3 +57,5 @@ app.put("/api/v1/comments/:commentId", (req, res) => {
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+module.exports = app;

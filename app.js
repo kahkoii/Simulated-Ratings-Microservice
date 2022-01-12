@@ -1,4 +1,5 @@
 const express = require("express");
+const db = require("./db/db");
 
 const app = express();
 const port = 8131;
@@ -13,6 +14,14 @@ function getToken(req, res, next) {
 }
 
 app.use(getToken);
+
+// TODO: REMOVE AFTER TESTING
+app.get("/test", (req, res) => {
+  db.query("SELECT * FROM passengers", (err, result) => {
+    if (err) throw err;
+    res.send(result[0]);
+  });
+});
 
 /* Ratings */
 // Get all ratings received

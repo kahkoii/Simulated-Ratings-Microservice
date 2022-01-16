@@ -172,6 +172,11 @@ app.put("/api/v1/comments/:commentId", (req, res) => {
   res.send("Update existing comment");
 });
 
+// Catch invalid endpoint requests
+app.use((req, res) => {
+  res.status(404).send("Error: Invalid API method or endpoint");
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 module.exports = app;

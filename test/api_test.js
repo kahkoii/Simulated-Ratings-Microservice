@@ -20,3 +20,13 @@ describe("Testing POST ratings/student endpoint", () => {
         expect(res.status).toBe(200);
       }));
 });
+
+describe("Testing invalid API endpoint", () => {
+  it("responds with 404 status code", () =>
+    // Make POST Request
+    request(app)
+      .get("/api/v1/rating/apple")
+      .then((res) => {
+        expect(res.status).toBe(404);
+      }));
+});

@@ -1,16 +1,15 @@
-const mysql = require("mysql2");
+const sqlite = require("sqlite3");
+const setupTables = require("./setup");
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "user",
-  password: "password",
-  database: "passenger_db",
+const db = new sqlite.Database("./db/student.db", (err) => {
+  if (err) {
+    console.error(err.message);
+  }
 });
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("Successfully connected to database.");
+db.serialize(() => {
+  setupTables(db);
+  console.log("DB is set-up and operational");
 });
 
-module.exports = connection;
+module.exports = db;

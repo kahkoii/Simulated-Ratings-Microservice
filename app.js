@@ -1,8 +1,15 @@
 const express = require("express");
-const db = require("./db/db");
+const makeQuery = require("./db/db");
 
 const app = express();
 const port = 8131;
+
+const getDateTimeNow = () => {
+  const now = new Date();
+  const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+  const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+  return `${date} ${time}`;
+};
 
 /* Authentication Logic */
 // TODO: Integrate with auth system
@@ -13,7 +20,7 @@ const verifiedUser = (req, res) => {
   if (token !== undefined) {
     return true;
   }
-  res.status(401).send("Error: user not authenticated");
+  res.status(401).send("Error: User not authenticated");
   return false;
 };
 
@@ -26,6 +33,7 @@ const getToken = (req, res, next) => {
 };
 
 /* Validation Functions */
+// check if a request Content-Type is specified to be application/json
 const reqTypeIsAppJSON = (req, res) => {
   if (req.get("Content-Type") === "application/json") {
     return true;
@@ -34,13 +42,62 @@ const reqTypeIsAppJSON = (req, res) => {
   return false;
 };
 
-// TODO: REMOVE AFTER TESTING
-app.get("/test", (req, res) => {
-  db.get("SELECT * FROM ratings", (err, row) => {
-    if (err) throw err;
-    res.send(row);
-  });
-});
+// check if there are any undefined fields, returns true if any string is undefined
+// accepts an array of objects as first param, and response object as second param
+const undefinedParamExists = (fields, res) => {
+  for (let i = 0; i < fields.length; i += 1) {
+    if (fields[i] === undefined) {
+      res.status(400).send("Error: One or more required fields are missing");
+      return true;
+    }
+  }
+  return false;
+};
+
+// check if parameters provided are of type string
+const isTypeString = (fields, res) => {
+  for (let i = 0; i < fields.length; i += 1) {
+    if (typeof fields[i] !== "string") {
+      res
+        .status(400)
+        .send("Error: One or more fields provided were of wrong data type");
+      return false;
+    }
+  }
+  return true;
+};
+
+// check if rating value provided is valid
+const ratingIsValid = (rating, res) => {
+  if (typeof rating === "number" && rating >= 0 && rating <= 5) {
+    return true;
+  }
+  res.status(400).send("Error: Rating provided is invalid");
+  return false;
+};
+
+// check if target type is valid
+const targetIsValid = (target, res) => {
+  if (
+    typeof target === "string" &&
+    (target === "student" ||
+      target === "tutor" ||
+      target === "module" ||
+      target === "class")
+  ) {
+    return true;
+  }
+  res.status(400).send("Error: Target provided is invalid");
+  return false;
+};
+
+const anonymousIsValid = (anonymous, res) => {
+  if (typeof anonymous === "boolean" || anonymous === undefined) {
+    return true;
+  }
+  res.status(400).send("Error: Anonymous parameter provided is invalid");
+  return false;
+};
 
 /* Middleware */
 app.use(express.json());
@@ -62,8 +119,31 @@ app.post("/api/v1/ratings/student", (req, res) => {
   if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
     return;
   }
-  console.log(req.body);
-  res.send("Create a new rating");
+  // validate body params
+  const b = req.body;
+  if (
+    undefinedParamExists([b.rating, b.studentId, b.target, b.targetId], res) ||
+    !isTypeString(b.studentId, b.target, b.targetId) ||
+    !ratingIsValid(b.rating, res) ||
+    !targetIsValid(b.target, res) ||
+    !anonymousIsValid(b.anonymous, res)
+  ) {
+    return;
+  }
+
+  const query = `
+    INSERT INTO ratings (rating, studentId, target, targetId, dateTime, anonymous)
+    VALUES (${b.rating}, '${b.studentId}', '${b.target}', '${
+    b.targetId
+  }', '${getDateTimeNow()}', ${b.anonymous || false});
+  `;
+
+  try {
+    makeQuery(query);
+    res.send("Success: New rating created");
+  } catch {
+    res.status(500).send("Error: Internal server error, please try again.");
+  }
 });
 
 // 1.4 Update existing rating (auth) TODO

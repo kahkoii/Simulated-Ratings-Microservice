@@ -12,4 +12,13 @@ db.serialize(() => {
   console.log("Database is set-up and operational");
 });
 
-module.exports = db;
+// Query function to be exported, returns true on error.
+const makeQuery = (query) => {
+  db.run(query, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+};
+
+module.exports = makeQuery;

@@ -2,7 +2,7 @@
   "name": "eti-assignment2",
   "version": "1.0.0",
   "description": "ETI Assignment 2 Task 3.9: Rating and Comments Dashboard for Students",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "mocha --exit"

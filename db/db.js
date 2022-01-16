@@ -9,7 +9,7 @@ const db = new sqlite.Database("./db/student.db", (err) => {
 
 db.serialize(() => {
   setupTables(db);
-  console.log("DB is set-up and operational");
+  console.log("Database is set-up and operational");
 });
 
 module.exports = db;

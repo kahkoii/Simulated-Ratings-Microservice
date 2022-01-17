@@ -1,5 +1,5 @@
 const express = require("express");
-const makeQuery = require("./db/db");
+const { makeQuery, getRowById } = require("./db/db");
 
 const app = express();
 const port = 8131;
@@ -65,6 +65,15 @@ const isTypeString = (fields, res) => {
     }
   }
   return true;
+};
+
+// check if id is valid
+const idIsValid = (id, res) => {
+  if (typeof id === "number" && id > 0) {
+    return true;
+  }
+  res.status(400).send("Error: IDs should be a JSON number data type");
+  return false;
 };
 
 // check if rating value provided is valid
@@ -133,7 +142,7 @@ app.get("/api/v1/ratings/sent/student/:senderId", (req, res) => {
   res.send("Get all ratings sent out");
 });
 
-// 1.3 Create a new rating (auth)
+// 1.3 Create a new rating (auth) TODO: VERIFY SENDER
 app.post("/api/v1/ratings/student", (req, res) => {
   if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
     return;
@@ -142,7 +151,7 @@ app.post("/api/v1/ratings/student", (req, res) => {
   const b = req.body;
   if (
     undefinedParamExists([b.rating, b.studentId, b.target, b.targetId], res) ||
-    !isTypeString(b.studentId, b.target, b.targetId) ||
+    !isTypeString([b.studentId, b.target, b.targetId], res) ||
     !ratingIsValid(b.rating, res) ||
     !targetIsValid(b.target, res) ||
     !anonymousIsValid(b.anonymous, res)
@@ -165,9 +174,43 @@ app.post("/api/v1/ratings/student", (req, res) => {
   }
 });
 
-// 1.4 Update existing rating (auth) TODO
+// 1.4 Update existing rating (auth) TODO: Implement Auth
 app.put("/api/v1/ratings/:ratingId", (req, res) => {
-  res.send("Update existing rating");
+  if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
+    return;
+  }
+  // validate body params
+  const b = req.body;
+  if (
+    undefinedParamExists([b.id, b.rating, b.studentId], res) ||
+    !isTypeString([b.studentId], res) ||
+    !idIsValid(b.id, res) ||
+    !ratingIsValid(b.rating, res) ||
+    !anonymousIsValid(b.anonymous, res)
+  ) {
+    return;
+  }
+
+  getRowById("ratings", b.id, (row) => {
+    // check if id provided exists and matches studentId
+    if (row === undefined || row.studentId !== b.studentId) {
+      res.status(400).send("Error: Invalid ID provided");
+    } else {
+      // query to update row
+      const query = `
+        UPDATE ratings SET rating = ${b.rating} ${
+        b.anonymous === undefined ? "" : `, anonymous = ${b.anonymous} `
+      }WHERE id = ${b.id};
+      `;
+
+      try {
+        makeQuery(query);
+        res.send("Success: Rating has been updated");
+      } catch {
+        res.status(500).send("Error: Internal server error, please try again.");
+      }
+    }
+  });
 });
 
 /*  Comments API */
@@ -190,7 +233,7 @@ app.post("/api/v1/comments/student", (req, res) => {
   const b = req.body;
   if (
     undefinedParamExists([b.comment, b.studentId, b.target, b.targetId], res) ||
-    !isTypeString(b.comment, b.studentId, b.target, b.targetId) ||
+    !isTypeString([b.comment, b.studentId, b.target, b.targetId], res) ||
     !commentIsValid(b.comment, res) ||
     !targetIsValid(b.target, res) ||
     !anonymousIsValid(b.anonymous, res)

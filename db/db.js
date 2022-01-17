@@ -21,4 +21,15 @@ const makeQuery = (query) => {
   });
 };
 
-module.exports = makeQuery;
+// Function to check if any row(s) with the given condition exist and return 1st row using callback
+const getRowById = (table, id, callback) => {
+  const query = `SELECT * FROM ${table} WHERE id = ?;`;
+  db.all(query, id, (err, row) => {
+    if (err) {
+      console.error(err);
+    }
+    callback(row[0]);
+  });
+};
+
+module.exports = { makeQuery, getRowById };

@@ -70,6 +70,51 @@ The response will be a status code `200` if request was successful, otherwise a 
 
 ---
 
+### 1.4 PUT ratings/student
+
+This endpoint is used by students to update their own rating.
+
+#### Endpoint URL
+
+```url
+http://localhost:8131/api/v1/ratings/student
+```
+
+#### JSON Body Parameters
+
+| Name        | Type    | Required | Description                                                                                                    |
+| ----------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------- |
+| `id`        | number  | Required | The ID of the rating given                                                                                     |
+| `rating`    | number  | Required | An integer between 0 to 5 inclusive representing the rating score                                              |
+| `studentId` | string  | Required | The ID of the student giving the rating                                                                        |
+| `anonymous` | boolean | Optional | Specify whether the rating should be anonymous, where `true` means remain anonymous. Default value is `false`. |
+
+#### Example Request
+
+cURL
+
+```sh
+curl --request PUT 'localhost:8131/api/v1/ratings/student' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id": 1,
+    "rating": 4,
+    "studentId": "S10198765A"
+}'
+```
+
+Windows cURL
+
+```sh
+curl --request PUT "localhost:8131/api/v1/ratings/student" --header "Content-Type: application/json" --data "{\"id\": 1,\"rating\": 4,\"studentId\": \"S10198765A\"}"
+```
+
+#### Response
+
+The response will be a status code `200` if request was successful, otherwise a corresponding status code and error message.
+
+---
+
 ## 2. Student Comments
 
 Base URL: `localhost:8131/api/v1/comments/student`

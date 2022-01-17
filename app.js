@@ -76,6 +76,25 @@ const ratingIsValid = (rating, res) => {
   return false;
 };
 
+// check if comment provided is valid
+const commentIsValid = (comment, res) => {
+  if (typeof comment === "string" && comment.length > 0) {
+    // check for special characters
+    const specialChars = /[`#%^&*_\[\]{};':"\\|<>~]/; // eslint-disable-line no-useless-escape
+    if (specialChars.test(comment)) {
+      res
+        .status(400)
+        .send("Error: Comments should not contain special characters");
+      return false;
+    }
+    return true;
+  }
+  res
+    .status(400)
+    .send("Error: Comments should be strings and have at least 1 character");
+  return false;
+};
+
 // check if target type is valid
 const targetIsValid = (target, res) => {
   if (
@@ -114,7 +133,7 @@ app.get("/api/v1/ratings/sent/student/:senderId", (req, res) => {
   res.send("Get all ratings sent out");
 });
 
-// 1.3 Create a new rating (auth) TODO
+// 1.3 Create a new rating (auth)
 app.post("/api/v1/ratings/student", (req, res) => {
   if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
     return;
@@ -162,9 +181,36 @@ app.get("/api/v1/comments/sent/student/:senderId", (req, res) => {
   res.send("Get all comments sent out");
 });
 
-// 2.3 Create a new comment (auth) TODO
+// 2.3 Create a new comment (auth)
 app.post("/api/v1/comments/student", (req, res) => {
-  res.send("Create a new comment");
+  if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
+    return;
+  }
+  // validate body params
+  const b = req.body;
+  if (
+    undefinedParamExists([b.comment, b.studentId, b.target, b.targetId], res) ||
+    !isTypeString(b.comment, b.studentId, b.target, b.targetId) ||
+    !commentIsValid(b.comment, res) ||
+    !targetIsValid(b.target, res) ||
+    !anonymousIsValid(b.anonymous, res)
+  ) {
+    return;
+  }
+
+  const query = `
+    INSERT INTO comments (comment, studentId, target, targetId, dateTime, anonymous)
+    VALUES ('${b.comment}', '${b.studentId}', '${b.target}', '${
+    b.targetId
+  }', '${getDateTimeNow()}', ${b.anonymous || false});
+  `;
+
+  try {
+    makeQuery(query);
+    res.send("Success: New comment created");
+  } catch {
+    res.status(500).send("Error: Internal server error, please try again.");
+  }
 });
 
 // 2.4 Update existing comment (auth) TODO

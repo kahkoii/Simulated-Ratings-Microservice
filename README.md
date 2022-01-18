@@ -62,7 +62,56 @@ If request was successful, a JSON array of ratings will be returned, and the `st
         "rating": 3,
         "studentId": "",
         "target": "student",
-        "targetId": "T024681012",s
+        "targetId": "T024681012",
+        "dateTime": "2022-1-18 17:52:29",
+        "anonymous": true
+    }
+]
+```
+
+---
+
+### 1.2 GET ratings (sent)
+
+This endpoint is used to get all ratings sent by the student to other students, tutors, modules and classes.
+
+#### Endpoint URL
+
+```url
+http://localhost:8131/api/v1/ratings/:student/:studentId/sent
+```
+
+#### Example Request
+
+cURL
+
+```sh
+curl GET "localhost:8131/api/v1/ratings/student/S10198765A/sent"
+```
+
+#### Response
+
+If request was successful, a JSON array of ratings sent by the student will be returned. Otherwise, a corresponding status code and error message will be returned.
+
+**Example**
+
+```JSON
+[
+    {
+        "id": 1,
+        "rating": 3,
+        "studentId": "S10198765A",
+        "target": "student",
+        "targetId": "S02468101B",
+        "dateTime": "2022-1-18 13:52:29",
+        "anonymous": false
+    },
+    {
+        "id": 2,
+        "rating": 3,
+        "studentId": "S10198765A",
+        "target": "tutor",
+        "targetId": "T024681012",
         "dateTime": "2022-1-18 17:52:29",
         "anonymous": true
     }
@@ -170,7 +219,7 @@ Base URL: `localhost:8131/api/v1/comments`
 
 ---
 
-### 1.1 GET comments
+### 2.1 GET comments
 
 This endpoint is used to get all comments given by students to other students, tutors, modules and classes.
 
@@ -213,6 +262,55 @@ If request was successful, a JSON array of comments will be returned, and the `s
         "targetId": "T024681012",
         "dateTime": "2022-1-17 13:39:11",
         "anonymous": true
+    }
+]
+```
+
+---
+
+### 2.2 GET comments (sent)
+
+This endpoint is used to get all comments sent by the student to other students, tutors, modules and classes.
+
+#### Endpoint URL
+
+```url
+http://localhost:8131/api/v1/comments/:student/:studentId/sent
+```
+
+#### Example Request
+
+cURL
+
+```sh
+curl GET "localhost:8131/api/v1/comments/student/S10198765A/sent"
+```
+
+#### Response
+
+If request was successful, a JSON array of comments sent by the student will be returned. Otherwise, a corresponding status code and error message will be returned.
+
+**Example**
+
+```JSON
+[
+    {
+        "id": 1,
+        "comment": "git gud noob",
+        "studentId": "S10198765A",
+        "target": "module",
+        "targetId": "M09271",
+        "dateTime": "2022-1-17 13:56:0",
+        "anonymous": true
+    },
+    {
+        "id": 2,
+        "comment": "SUS ඞ",
+        "studentId": "S10198765A",
+        "target": "class",
+        "targetId": "C8127S",
+        "dateTime": "2022-1-17 14:1:35",
+        "anonymous": false
     }
 ]
 ```

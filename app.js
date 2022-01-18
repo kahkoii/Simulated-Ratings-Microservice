@@ -163,9 +163,27 @@ app.get("/api/v1/ratings/:target/:targetId", (req, res) => {
   );
 });
 
-// 1.2 Get all ratings sent out by a student (auth) TODO
+// 1.2 Get all ratings sent out by a student (auth) TODO: auth
 app.get("/api/v1/ratings/student/:studentId/sent", (req, res) => {
-  res.send("Get all ratings sent out");
+  if (!verifiedUser(req, res)) return;
+
+  getRows(
+    "SELECT * FROM ratings WHERE studentId = ?;",
+    [req.params.studentId],
+    (err, rows) => {
+      if (err) {
+        res.status(500).send("Error: Internal server error, please try again.");
+      } else {
+        const ratingList = [];
+        rows.forEach((row) => {
+          // eslint-disable-next-line
+          row.anonymous = row.anonymous === 1 ? true : false;
+          ratingList.push(row);
+        });
+        res.send(ratingList);
+      }
+    }
+  );
 });
 
 // 1.3 Create a new rating (auth) TODO: VERIFY SENDER
@@ -273,7 +291,25 @@ app.get("/api/v1/comments/:target/:targetId", (req, res) => {
 
 // 2.2 Get all comments sent out by a student (auth) TODO
 app.get("/api/v1/comments/student/:studentId/sent", (req, res) => {
-  res.send("Get all comments sent out");
+  if (!verifiedUser(req, res)) return;
+
+  getRows(
+    "SELECT * FROM comments WHERE studentId = ?;",
+    [req.params.studentId],
+    (err, rows) => {
+      if (err) {
+        res.status(500).send("Error: Internal server error, please try again.");
+      } else {
+        const ratingList = [];
+        rows.forEach((row) => {
+          // eslint-disable-next-line
+          row.anonymous = row.anonymous === 1 ? true : false;
+          ratingList.push(row);
+        });
+        res.send(ratingList);
+      }
+    }
+  );
 });
 
 // 2.3 Create a new comment (auth)

@@ -16,13 +16,62 @@ The task breakdown for this assignment is as follows:
 
 # API Reference
 
-## 1. Student Ratings
+## 1. Ratings
 
-Base URL: `localhost:8131/api/v1/ratings/student`
+Base URL: `localhost:8131/api/v1/ratings`
 
 ---
 
-### 1.3 POST ratings/student
+### 1.1 GET ratings
+
+This endpoint is used to get all ratings given by students to other students, tutors, modules and classes.
+
+#### Endpoint URL
+
+```url
+http://localhost:8131/api/v1/ratings/:target/:targetId
+```
+
+#### Example Request
+
+cURL
+
+```sh
+curl GET "localhost:8131/api/v1/ratings/student/T024681012"
+```
+
+#### Response
+
+If request was successful, a JSON array of ratings will be returned, and the `studentId` field will be an empty string if anonymous is set to true. If the request was unsuccessful, a corresponding status code and error message will be returned.
+
+**Example**
+
+```JSON
+[
+    {
+        "id": 1,
+        "rating": 3,
+        "studentId": "S10198765C",
+        "target": "student",
+        "targetId": "T024681012",
+        "dateTime": "2022-1-18 13:52:29",
+        "anonymous": false
+    },
+    {
+        "id": 2,
+        "rating": 3,
+        "studentId": "",
+        "target": "student",
+        "targetId": "T024681012",s
+        "dateTime": "2022-1-18 17:52:29",
+        "anonymous": true
+    }
+]
+```
+
+---
+
+### 1.3 POST ratings
 
 This endpoint is used by students to give a new rating.
 
@@ -70,9 +119,9 @@ The response will be a status code `200` if request was successful, otherwise a 
 
 ---
 
-### 1.4 PUT ratings/student
+### 1.4 PUT ratings
 
-This endpoint is used by students to update their own rating.
+This endpoint is used by students to update their own ratings.
 
 #### Endpoint URL
 
@@ -115,13 +164,13 @@ The response will be a status code `200` if request was successful, otherwise a 
 
 ---
 
-## 2. Student Comments
+## 2. Comments
 
-Base URL: `localhost:8131/api/v1/comments/student`
+Base URL: `localhost:8131/api/v1/comments`
 
 ---
 
-### 2.3 POST comments/student
+### 2.3 POST comments
 
 This endpoint is used by students to give a new rating.
 
@@ -169,7 +218,7 @@ The response will be a status code `200` if request was successful, otherwise a 
 
 ---
 
-### 2.4 PUT comments/student
+### 2.4 PUT comments
 
 This endpoint is used by students to update their own comments.
 

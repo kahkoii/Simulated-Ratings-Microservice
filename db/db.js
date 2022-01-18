@@ -13,11 +13,22 @@ db.serialize(() => {
 });
 
 // Query function to be exported, returns true on error.
-const makeQuery = (query, params = []) => {
-  db.run(query, params, (err) => {
+const makeQuery = (query, params = [], callback = () => {}) => {
+  db.run(query, params, (err, rows) => {
     if (err) {
       console.error(err);
     }
+    callback(rows);
+  });
+};
+
+// Function to handle get requests
+const getRows = (query, params = [], callback = () => {}) => {
+  db.all(query, params, (err, rows) => {
+    if (err) {
+      console.error(err);
+    }
+    callback(err, rows);
   });
 };
 
@@ -32,4 +43,4 @@ const getRowById = (table, id, callback) => {
   });
 };
 
-module.exports = { makeQuery, getRowById };
+module.exports = { makeQuery, getRows, getRowById };

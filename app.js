@@ -1,5 +1,5 @@
 const express = require("express");
-const { makeQuery, getRowById } = require("./db/db");
+const { makeQuery, getRows, getRowById } = require("./db/db");
 
 const app = express();
 const port = 8131;
@@ -132,18 +132,44 @@ app.use(express.json());
 app.use(getToken);
 
 /* Ratings API */
-// 1.1 Get all ratings received TODO
-app.get("/api/v1/ratings/received/student/:recepientId", (req, res) => {
-  res.send("Get all ratings received");
+// 1.1 Get all ratings received
+app.get("/api/v1/ratings/:target/:targetId", (req, res) => {
+  // check if target is valid
+  if (!["student", "tutor", "module", "class"].includes(req.params.target)) {
+    res.status(400).send("Error: Target is invalid");
+    return;
+  }
+
+  getRows(
+    "SELECT * FROM ratings WHERE target = ? AND targetId = ?;",
+    [req.params.target, req.params.targetId],
+    (err, rows) => {
+      if (err) {
+        res.status(500).send("Error: Internal server error, please try again.");
+      } else {
+        const ratingList = [];
+        rows.forEach((row) => {
+          if (row.anonymous === 1) {
+            // eslint-disable-next-line no-param-reassign
+            row.studentId = "";
+          }
+          // eslint-disable-next-line
+          row.anonymous = row.anonymous === 1 ? true : false;
+          ratingList.push(row);
+        });
+        res.send(ratingList);
+      }
+    }
+  );
 });
 
-// 1.2 Get all ratings sent out (auth) TODO
-app.get("/api/v1/ratings/sent/student/:senderId", (req, res) => {
+// 1.2 Get all ratings sent out by a student (auth) TODO
+app.get("/api/v1/ratings/student/:studentId/sent", (req, res) => {
   res.send("Get all ratings sent out");
 });
 
 // 1.3 Create a new rating (auth) TODO: VERIFY SENDER
-app.post("/api/v1/ratings/student", (req, res) => {
+app.post("/api/v1/ratings", (req, res) => {
   if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
     return;
   }
@@ -175,7 +201,7 @@ app.post("/api/v1/ratings/student", (req, res) => {
 });
 
 // 1.4 Update existing rating (auth) TODO: Implement Auth
-app.put("/api/v1/ratings/:ratingId", (req, res) => {
+app.put("/api/v1/ratings", (req, res) => {
   if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
     return;
   }
@@ -215,17 +241,17 @@ app.put("/api/v1/ratings/:ratingId", (req, res) => {
 
 /*  Comments API */
 // 2.1 Get all comments received TODO
-app.get("/api/v1/comments/received/student/:recepientId", (req, res) => {
+app.get("/api/v1/comments/:target/:targetId", (req, res) => {
   res.send("Get all comments received");
 });
 
-// 2.2 Get all comments sent out (auth) TODO
-app.get("/api/v1/comments/sent/student/:senderId", (req, res) => {
+// 2.2 Get all comments sent out by a student (auth) TODO
+app.get("/api/v1/comments/student/:studentId/sent", (req, res) => {
   res.send("Get all comments sent out");
 });
 
 // 2.3 Create a new comment (auth)
-app.post("/api/v1/comments/student", (req, res) => {
+app.post("/api/v1/comments", (req, res) => {
   if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
     return;
   }
@@ -255,7 +281,7 @@ app.post("/api/v1/comments/student", (req, res) => {
 });
 
 // 2.4 Update existing comment (auth) TODO: Validate Auth
-app.put("/api/v1/comments/:commentId", (req, res) => {
+app.put("/api/v1/comments", (req, res) => {
   if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
     return;
   }

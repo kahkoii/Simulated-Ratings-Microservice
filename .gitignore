@@ -1,2 +1,6 @@
+# Backend
 node_modules
 db/student.db
+
+# Frontend
+frontend/node_modules

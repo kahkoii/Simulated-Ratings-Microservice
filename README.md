@@ -170,6 +170,55 @@ Base URL: `localhost:8131/api/v1/comments`
 
 ---
 
+### 1.1 GET comments
+
+This endpoint is used to get all comments given by students to other students, tutors, modules and classes.
+
+#### Endpoint URL
+
+```url
+http://localhost:8131/api/v1/comments/:target/:targetId
+```
+
+#### Example Request
+
+cURL
+
+```sh
+curl GET "localhost:8131/api/v1/comments/module/T024681012"
+```
+
+#### Response
+
+If request was successful, a JSON array of comments will be returned, and the `studentId` field will be an empty string if anonymous is set to true. If the request was unsuccessful, a corresponding status code and error message will be returned.
+
+**Example**
+
+```JSON
+[
+    {
+        "id": 1,
+        "comment": "cringe",
+        "studentId": "S10198765A",
+        "target": "module",
+        "targetId": "T024681012",
+        "dateTime": "2022-1-17 13:28:11",
+        "anonymous": false
+    },
+    {
+        "id": 2,
+        "comment": "SUS ඞ",
+        "studentId": "",
+        "target": "module",
+        "targetId": "T024681012",
+        "dateTime": "2022-1-17 13:39:11",
+        "anonymous": true
+    }
+]
+```
+
+---
+
 ### 2.3 POST comments
 
 This endpoint is used by students to give a new rating.

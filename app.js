@@ -242,7 +242,33 @@ app.put("/api/v1/ratings", (req, res) => {
 /*  Comments API */
 // 2.1 Get all comments received TODO
 app.get("/api/v1/comments/:target/:targetId", (req, res) => {
-  res.send("Get all comments received");
+  // check if target is valid
+  if (!["student", "tutor", "module", "class"].includes(req.params.target)) {
+    res.status(400).send("Error: Target is invalid");
+    return;
+  }
+
+  getRows(
+    "SELECT * FROM comments WHERE target = ? AND targetId = ?;",
+    [req.params.target, req.params.targetId],
+    (err, rows) => {
+      if (err) {
+        res.status(500).send("Error: Internal server error, please try again.");
+      } else {
+        const ratingList = [];
+        rows.forEach((row) => {
+          if (row.anonymous === 1) {
+            // eslint-disable-next-line no-param-reassign
+            row.studentId = "";
+          }
+          // eslint-disable-next-line
+          row.anonymous = row.anonymous === 1 ? true : false;
+          ratingList.push(row);
+        });
+        res.send(ratingList);
+      }
+    }
+  );
 });
 
 // 2.2 Get all comments sent out by a student (auth) TODO

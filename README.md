@@ -40,7 +40,7 @@ http://localhost:8131/api/v1/ratings/student
 | `studentId` | string  | Required | The ID of the student giving the rating                                                                             |
 | `target`    | string  | Required | The target of the rating, or who the rating is for. The accepted targets are `student`, `tutor`, `module`, `class`. |
 | `targetId`  | string  | Required | The ID of the specified target type                                                                                 |
-| `anonymous` | boolean | Optional | Specify whether the rating should be anonymous, where `true` means remain anonymous. Default value is `false`.      |
+| `anonymous` | boolean | Optional | Specify whether the rating should be anonymous, where `true` means remain anonymous. Default value is `false`       |
 
 #### Example Request
 
@@ -82,12 +82,12 @@ http://localhost:8131/api/v1/ratings/student
 
 #### JSON Body Parameters
 
-| Name        | Type    | Required | Description                                                                                                    |
-| ----------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------- |
-| `id`        | number  | Required | The ID of the rating given                                                                                     |
-| `rating`    | number  | Required | An integer between 0 to 5 inclusive representing the rating score                                              |
-| `studentId` | string  | Required | The ID of the student giving the rating                                                                        |
-| `anonymous` | boolean | Optional | Specify whether the rating should be anonymous, where `true` means remain anonymous. Default value is `false`. |
+| Name        | Type    | Required | Description                                                                                                                                                 |
+| ----------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`        | number  | Required | The ID of the rating given                                                                                                                                  |
+| `rating`    | number  | Required | An integer between 0 to 5 inclusive representing the rating score                                                                                           |
+| `studentId` | string  | Required | The ID of the student giving the rating                                                                                                                     |
+| `anonymous` | boolean | Optional | Specify whether the rating should be anonymous, where `true` means remain anonymous. Leaving this parameter empty will leave the anonymity status unchanged |
 
 #### Example Request
 
@@ -133,13 +133,13 @@ http://localhost:8131/api/v1/comments/student
 
 #### JSON Body Parameters
 
-| Name        | Type    | Required | Description                                                                                                           |
-| ----------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------------- |
-| `comment`   | string  | Required | A message that contains at least 1 character, and consists of only `a-z`, `A-Z` and `,.!?+-*/=()$@` characters        |
-| `studentId` | string  | Required | The ID of the student giving the comment                                                                              |
-| `target`    | string  | Required | The target of the comment, or who the comment is for. The accepted targets are `student`, `tutor`, `module`, `class`. |
-| `targetId`  | string  | Required | The ID of the specified target type                                                                                   |
-| `anonymous` | boolean | Optional | Specify whether the comment should be anonymous, where `true` means remain anonymous. Default value is `false`.       |
+| Name        | Type    | Required | Description                                                                                                              |
+| ----------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `comment`   | string  | Required | A message that contains at least 1 character, and consists of only `0-9`, `a-z`, `A-Z` and `,.!?+-*/%=()$@:\` characters |
+| `studentId` | string  | Required | The ID of the student giving the comment                                                                                 |
+| `target`    | string  | Required | The target of the comment, or who the comment is for. The accepted targets are `student`, `tutor`, `module`, `class`.    |
+| `targetId`  | string  | Required | The ID of the specified target type                                                                                      |
+| `anonymous` | boolean | Optional | Specify whether the comment should be anonymous, where `true` means remain anonymous. Default value is `false`           |
 
 #### Example Request
 
@@ -161,6 +161,52 @@ Windows cURL
 
 ```sh
 curl --request POST "localhost:8131/api/v1/comments/student" --header "Content-Type: application/json" --data "{\"comment\": \"git gud noob\",\"studentId\": \"S10198765A\",\"target\": \"student\",\"targetId\": \"T024681012\",\"anonymous\": true}"
+```
+
+#### Response
+
+The response will be a status code `200` if request was successful, otherwise a corresponding status code and error message.
+
+---
+
+### 2.4 PUT comments/student
+
+This endpoint is used by students to update their own comments.
+
+#### Endpoint URL
+
+```url
+http://localhost:8131/api/v1/comments/student
+```
+
+#### JSON Body Parameters
+
+| Name        | Type    | Required | Description                                                                                                                                                 |
+| ----------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`        | number  | Required | The ID of the comment given                                                                                                                                 |
+| `comment`   | number  | Required | A message that contains at least 1 character, and consists of only `0-9`, `a-z`, `A-Z` and `,.!?+-*/%=()$@:\` characters                                    |
+| `studentId` | string  | Required | The ID of the student giving the comment                                                                                                                    |
+| `anonymous` | boolean | Optional | Specify whether the rating should be anonymous, where `true` means remain anonymous. Leaving this parameter empty will leave the anonymity status unchanged |
+
+#### Example Request
+
+cURL
+
+```sh
+curl --request PUT 'localhost:8131/api/v1/comments/student' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id": 4,
+    "comment": "SUS",
+    "studentId": "S10198765A",
+    "anonymous": true
+}'
+```
+
+Windows cURL
+
+```sh
+curl --request PUT "localhost:8131/api/v1/comments/student" --header "Content-Type: application/json" --data "{\"id\": 5,\"comment\": \"SUS\",\"studentId\": \"S10198765A\",\"anonymous\": true}"
 ```
 
 #### Response

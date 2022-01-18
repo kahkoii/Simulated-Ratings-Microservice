@@ -89,7 +89,7 @@ const ratingIsValid = (rating, res) => {
 const commentIsValid = (comment, res) => {
   if (typeof comment === "string" && comment.length > 0) {
     // check for special characters
-    const specialChars = /[`#%^&*_\[\]{};':"\\|<>~]/; // eslint-disable-line no-useless-escape
+    const specialChars = /[`#^&_\[\]{};'"|<>~]/; // eslint-disable-line no-useless-escape
     if (specialChars.test(comment)) {
       res
         .status(400)
@@ -243,22 +243,54 @@ app.post("/api/v1/comments/student", (req, res) => {
 
   const query = `
     INSERT INTO comments (comment, studentId, target, targetId, dateTime, anonymous)
-    VALUES ('${b.comment}', '${b.studentId}', '${b.target}', '${
-    b.targetId
-  }', '${getDateTimeNow()}', ${b.anonymous || false});
+    VALUES (?, ?, ?, ?, '${getDateTimeNow()}', ${b.anonymous || false});
   `;
 
   try {
-    makeQuery(query);
+    makeQuery(query, [b.comment, b.studentId, b.target, b.targetId]);
     res.send("Success: New comment created");
   } catch {
     res.status(500).send("Error: Internal server error, please try again.");
   }
 });
 
-// 2.4 Update existing comment (auth) TODO
+// 2.4 Update existing comment (auth) TODO: Validate Auth
 app.put("/api/v1/comments/:commentId", (req, res) => {
-  res.send("Update existing comment");
+  if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
+    return;
+  }
+  // validate body params
+  const b = req.body;
+  if (
+    undefinedParamExists([b.id, b.comment, b.studentId], res) ||
+    !isTypeString([b.comment, b.studentId], res) ||
+    !idIsValid(b.id, res) ||
+    !commentIsValid(b.comment, res) ||
+    !anonymousIsValid(b.anonymous, res)
+  ) {
+    return;
+  }
+
+  getRowById("comments", b.id, (row) => {
+    // check if id provided exists and matches studentId
+    if (row === undefined || row.studentId !== b.studentId) {
+      res.status(400).send("Error: Invalid ID provided");
+    } else {
+      // query to update row
+      const query = `
+        UPDATE comments SET comment = ? ${
+          b.anonymous === undefined ? "" : `, anonymous = ${b.anonymous} `
+        }WHERE id = ${b.id};
+      `;
+
+      try {
+        makeQuery(query, b.comment);
+        res.send("Success: Comment has been updated");
+      } catch {
+        res.status(500).send("Error: Internal server error, please try again.");
+      }
+    }
+  });
 });
 
 // Catch invalid endpoint requests

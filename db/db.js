@@ -13,8 +13,8 @@ db.serialize(() => {
 });
 
 // Query function to be exported, returns true on error.
-const makeQuery = (query) => {
-  db.run(query, (err) => {
+const makeQuery = (query, params = []) => {
+  db.run(query, params, (err) => {
     if (err) {
       console.error(err);
     }

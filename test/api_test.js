@@ -7,7 +7,7 @@ describe("Testing POST ratings/student endpoint", () => {
   it("responds with success status code", () =>
     // Make POST Request
     request(app)
-      .post("/api/v1/ratings/student")
+      .post("/api/v1/ratings")
       .set("Content-Type", "application/json")
       .send({
         rating: 5,

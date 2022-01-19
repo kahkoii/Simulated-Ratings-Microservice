@@ -1,8 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const { makeQuery, getRows, getRowById } = require("./db/db");
 
 const app = express();
 const port = 8131;
+app.use(cors());
 
 const getDateTimeNow = () => {
   const now = new Date();

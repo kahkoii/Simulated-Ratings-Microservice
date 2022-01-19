@@ -1,7 +1,14 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
+import RatingsReceived from "../components/RatingsReceived";
 
-const SelfFeedback: React.FC = () => {
-  return <Flex>hello myself</Flex>;
+const SelfFeedback: React.FC<{ studentId: string }> = (props) => {
+  const { studentId } = props;
+  return (
+    <Flex>
+      <Text>My Feedback</Text>
+      <RatingsReceived studentId={studentId} />
+    </Flex>
+  );
 };
 
 export default SelfFeedback;

@@ -5,11 +5,15 @@ import MissingPage from "./pages/MissingPage";
 import Layout from "./pages/Layout";
 
 function App() {
+  let id = "";
+  // Retrieve id using auth token
+  id = "T024681012";
+
   return (
     <Router>
       <Routes>
         <Route path="/feedback" element={<Layout />}>
-          <Route index element={<SelfFeedback />} />
+          <Route index element={<SelfFeedback studentId={id} />} />
           <Route path=":studentId" element={<Feedback />} />
         </Route>
         <Route path="*" element={<MissingPage />} />

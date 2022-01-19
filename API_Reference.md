@@ -111,7 +111,7 @@ This endpoint is used by students to give a new rating.
 #### Endpoint URL
 
 ```url
-http://localhost:8131/api/v1/ratings/student
+http://localhost:8131/api/v1/ratings
 ```
 
 #### JSON Body Parameters
@@ -159,7 +159,7 @@ This endpoint is used by students to update their own ratings.
 #### Endpoint URL
 
 ```url
-http://localhost:8131/api/v1/ratings/student
+http://localhost:8131/api/v1/ratings
 ```
 
 #### JSON Body Parameters
@@ -308,7 +308,7 @@ This endpoint is used by students to give a new rating.
 #### Endpoint URL
 
 ```url
-http://localhost:8131/api/v1/comments/student
+http://localhost:8131/api/v1/comments
 ```
 
 #### JSON Body Parameters
@@ -356,7 +356,7 @@ This endpoint is used by students to update their own comments.
 #### Endpoint URL
 
 ```url
-http://localhost:8131/api/v1/comments/student
+http://localhost:8131/api/v1/comments
 ```
 
 #### JSON Body Parameters

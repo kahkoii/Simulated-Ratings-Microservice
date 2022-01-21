@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  # Frontend Server
+  api-server:
+    build:
+      context: .
+    ports:
+      - 8131:8131
+    container_name: 13_api-server
+    network_mode: bridge
+    deploy:
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - sqlite-db:/app/db
+
+volumes:
+  sqlite-db:

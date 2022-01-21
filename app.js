@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { makeQuery, getRows, getRowById } = require("./db/db");
+const { makeQuery, getRows, getRowById } = require("./db/setupdb");
 
 const app = express();
 const port = 8131;

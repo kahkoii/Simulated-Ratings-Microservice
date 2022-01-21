@@ -9,8 +9,11 @@ COPY yarn.lock ./
 
 # Copy the source code
 COPY app.js ./
-COPY db/db.js db/db.js
-COPY db/setup.js db/setup.js
+COPY db/setupdb.js db/setupdb.js
+
+# Install sqlite
+RUN apk add --update sqlite
+RUN sqlite3 db/student.db
 
 # Install dependencies
 RUN yarn install

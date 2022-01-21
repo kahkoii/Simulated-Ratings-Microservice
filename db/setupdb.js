@@ -1,5 +1,4 @@
 const sqlite = require("sqlite3");
-const setupTables = require("./setup");
 
 const db = new sqlite.Database("./db/student.db", (err) => {
   if (err) {
@@ -8,7 +7,28 @@ const db = new sqlite.Database("./db/student.db", (err) => {
 });
 
 db.serialize(() => {
-  setupTables(db);
+  db.run(`
+    CREATE TABLE IF NOT EXISTS ratings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      rating INTEGER NOT NULL CHECK (anonymous BETWEEN 0 AND 5),
+      studentId TEXT NOT NULL,
+      target TEXT NOT NULL,
+      targetId TEXT NOT NULL,
+      dateTime TEXT NOT NULL,
+      anonymous INTEGER NOT NULL CHECK (anonymous IN (0, 1))
+    );
+  `);
+  db.run(`
+    CREATE TABLE IF NOT EXISTS comments (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      comment TEXT NOT NULL,
+      studentId TEXT NOT NULL,
+      target TEXT NOT NULL,
+      targetId TEXT NOT NULL,
+      dateTime TEXT NOT NULL,
+      anonymous INTEGER NOT NULL CHECK (anonymous IN (0, 1))
+    );
+  `);
   console.log("Database is set-up and operational");
 });
 

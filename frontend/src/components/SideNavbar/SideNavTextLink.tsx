@@ -11,8 +11,8 @@ const SideNavTextLink: React.FC<SideNavTextLinkProps> = (props) => {
   const { to, text, icon } = props;
   return (
     <Flex
-      width="100%"
-      paddingLeft="10px"
+      width="80%"
+      margin="0 20px"
       minWidth="210px"
       borderRadius={{ base: "0px", md: "12px" }}
       overflow="hidden"

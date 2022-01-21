@@ -8,7 +8,7 @@ const Layout: React.FC = () => {
   const { studentId } = useParams<{ studentId?: string }>();
   const locations: [string, string, JSX.Element][] = [
     // Params: Page Name, Endpoint, Icon
-    ["Feedback", "feedback", <VscFeedback />],
+    ["Feedback", "/feedback", <VscFeedback />],
   ];
   return (
     <Flex h="100vh">

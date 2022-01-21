@@ -1,7 +1,7 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { apiGetRatings } from "../endpoints/ratings";
-import { IRating } from "../interfaces";
+import { apiGetRatings } from "../../endpoints/ratings";
+import { IRating } from "../../interfaces";
 
 interface Props {
   studentId: string;

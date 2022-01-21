@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import RatingsReceived from "../components/RatingsReceived";
+import RatingsReceived from "../components/RatingsReceived/RatingsReceived";
 
 const SelfFeedback: React.FC<{ studentId: string }> = (props) => {
   const { studentId } = props;

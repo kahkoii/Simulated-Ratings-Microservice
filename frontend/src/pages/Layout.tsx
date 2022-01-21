@@ -28,15 +28,22 @@ const Layout: React.FC = () => {
           borderRadius="20px"
           boxShadow="xl"
           bgColor="#f5f5f5"
-          padding="20px"
+          padding="30px"
         >
-          <Text fontWeight="semibold" fontSize="3xl" paddingLeft="20px">
+          <Searchbar />
+          <Text
+            fontWeight="semibold"
+            fontSize="3xl"
+            margin="16px"
+            marginLeft="0"
+          >
             {studentId === undefined
               ? "My Feedback"
               : `Student ${studentId}'s Feedback`}
           </Text>
-          <Searchbar />
-          <Outlet />
+          <Flex flexDir="column" height="100%" width="100%">
+            <Outlet />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

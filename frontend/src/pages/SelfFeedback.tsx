@@ -2,6 +2,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import RatingsReceived from "../components/RatingsReceived/RatingsReceived";
 import RatingsGiven from "../components/RatingsGiven/RatingsGiven";
 import CommentsReceived from "../components/CommentsReceived/CommentsReceived";
+import CommentsGiven from "../components/CommentsGiven/CommentsGiven";
 
 const Subtitle: React.FC<{ text: string }> = (prop) => (
   <Text fontWeight="medium" fontSize="lg" margin="0 0 10px 8px">
@@ -58,6 +59,7 @@ const SelfFeedback: React.FC<{ studentId: string }> = (props) => {
           padding="16px"
         >
           <Subtitle text="Comments Given" />
+          <CommentsGiven studentId={studentId} />
         </Flex>
       </Flex>
     </Flex>

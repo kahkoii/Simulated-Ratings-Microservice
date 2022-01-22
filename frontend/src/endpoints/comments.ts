@@ -36,7 +36,7 @@ const apiPostComment = async (
 
 const apiUpdateComment = async (
   id: number,
-  comment: number,
+  comment: string,
   studentId: string,
   anonymous = false
 ) => {

@@ -23,8 +23,8 @@ const Layout: React.FC = () => {
       >
         <Flex
           flexDir="column"
-          height="80%"
-          width="70%"
+          height="88%"
+          width="80%"
           borderRadius="20px"
           boxShadow="xl"
           bgColor="#f5f5f5"
@@ -41,7 +41,7 @@ const Layout: React.FC = () => {
               ? "My Feedback"
               : `Student ${studentId}'s Feedback`}
           </Text>
-          <Flex flexDir="column" height="100%" width="100%">
+          <Flex height="100%" width="100%">
             <Outlet />
           </Flex>
         </Flex>

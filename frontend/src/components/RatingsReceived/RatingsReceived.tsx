@@ -19,9 +19,8 @@ const RatingsReceived: React.FC<Props> = (props) => {
 
   return (
     <Flex flexDir="column" bgColor="red">
-      <Text>Ratings Received</Text>
-      {ratings.map((rating, index) => (
-        <Flex key={index}>
+      {ratings.map((rating) => (
+        <Flex key={rating.id}>
           <Text>ID: {rating.id}</Text>
           <Text>Rating: {rating.rating}</Text>
           <Text>

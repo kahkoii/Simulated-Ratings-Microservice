@@ -46,6 +46,7 @@ const apiUpdateRating = async (
     url: ratingsURL,
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({
+      id,
       rating,
       studentId,
       anonymous,

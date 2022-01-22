@@ -45,6 +45,7 @@ const apiUpdateComment = async (
     url: commentsURL,
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify({
+      id,
       comment,
       studentId,
       anonymous,

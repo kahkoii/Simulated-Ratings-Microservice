@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import RatingsReceived from "../components/RatingsReceived/RatingsReceived";
+import RatingsGiven from "../components/RatingsGiven/RatingsGiven";
 
 const Subtitle: React.FC<{ text: string }> = (prop) => (
   <Text fontWeight="medium" fontSize="lg" margin="0 0 10px 8px">
@@ -10,11 +11,11 @@ const Subtitle: React.FC<{ text: string }> = (prop) => (
 const SelfFeedback: React.FC<{ studentId: string }> = (props) => {
   const { studentId } = props;
   return (
-    <Flex width="100%" gap="18px">
-      <Flex flexDir="column" width="35%" gap="10px">
+    <Flex height="100%" width="100%" gap="18px">
+      <Flex flexDir="column" height="100%" width="40%" gap="10px">
         <Flex
           flexDir="column"
-          height="50%"
+          height="49%"
           bgColor="white"
           borderRadius="20px"
           boxShadow="md"
@@ -25,16 +26,17 @@ const SelfFeedback: React.FC<{ studentId: string }> = (props) => {
         </Flex>
         <Flex
           flexDir="column"
-          height="50%"
+          height="49%"
           bgColor="white"
           borderRadius="20px"
           boxShadow="md"
           padding="16px"
         >
           <Subtitle text="Ratings Given" />
+          <RatingsGiven studentId={studentId} />
         </Flex>
       </Flex>
-      <Flex flexDir="column" width="65%" gap="10px">
+      <Flex flexDir="column" width="60%" gap="10px">
         <Flex
           flexDir="column"
           height="60%"

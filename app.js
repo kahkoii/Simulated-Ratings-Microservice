@@ -80,7 +80,7 @@ const idIsValid = (id, res) => {
 
 // check if rating value provided is valid
 const ratingIsValid = (rating, res) => {
-  if (typeof rating === "number" && rating >= 0 && rating <= 5) {
+  if (typeof rating === "number" && rating >= 1 && rating <= 5) {
     return true;
   }
   res.status(400).send("Error: Rating provided is invalid");
@@ -91,7 +91,7 @@ const ratingIsValid = (rating, res) => {
 const commentIsValid = (comment, res) => {
   if (typeof comment === "string" && comment.length > 0) {
     // check for special characters
-    const specialChars = /[`#^&_\[\]{};'"|<>~]/; // eslint-disable-line no-useless-escape
+    const specialChars = /[`#^&_\[\]{};"|<>~]/; // eslint-disable-line no-useless-escape
     if (specialChars.test(comment)) {
       res
         .status(400)

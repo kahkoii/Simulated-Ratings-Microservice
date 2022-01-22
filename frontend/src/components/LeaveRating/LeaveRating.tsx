@@ -2,6 +2,7 @@ import { Flex, Text, Checkbox, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import StarRatings from "react-star-ratings";
 import { apiPostRating } from "../../endpoints/ratings";
+import Alert from "./Alert";
 
 interface Props {
   studentId: string;
@@ -13,14 +14,26 @@ const LeaveRating: React.FC<Props> = (props) => {
   const { studentId, target, targetId } = props;
   const [rating, setRating] = useState(0);
   const [anon, setAnon] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const onClose = () => setIsAlertOpen(false);
 
   const submit = (): void => {
-    apiPostRating(rating, studentId, target, targetId, anon);
-    window.location.reload();
+    if (rating === 0) {
+      setIsAlertOpen(true);
+    } else {
+      apiPostRating(rating, studentId, target, targetId, anon);
+      window.location.reload();
+    }
   };
 
   return (
     <Flex padding="6px" alignItems="center">
+      <Alert
+        isOpen={isAlertOpen}
+        onClose={onClose}
+        title="Leave Rating Failed"
+        body="Please select the number of stars to rate."
+      />
       <StarRatings
         rating={rating}
         changeRating={(r) => {

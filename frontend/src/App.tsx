@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/feedback" element={<Layout />}>
           <Route index element={<SelfFeedback studentId={id} />} />
-          <Route path=":studentId" element={<Feedback />} />
+          <Route path=":studentId" element={<Feedback userId={id} />} />
         </Route>
         <Route path="*" element={<MissingPage />} />
       </Routes>

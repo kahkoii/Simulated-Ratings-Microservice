@@ -27,7 +27,12 @@ const LeaveRating: React.FC<Props> = (props) => {
   };
 
   return (
-    <Flex height="100%" padding="6px" alignItems="center">
+    <Flex
+      height="100%"
+      padding="6px"
+      alignItems="center"
+      justifyContent="space-around"
+    >
       <Alert
         isOpen={isAlertOpen}
         onClose={onClose}
@@ -45,17 +50,17 @@ const LeaveRating: React.FC<Props> = (props) => {
         starSpacing="1px"
         numberOfStars={5}
       />
-      <Text fontWeight="semibold" margin="0 10px 0 60px">
-        Anonymous:{" "}
-      </Text>
-      <Checkbox
-        size="md"
-        defaultChecked={false}
-        onChange={(e) => {
-          setAnon(e.target.checked);
-        }}
-      />
-      <Button onClick={submit} colorScheme="green" marginLeft="56px">
+      <Flex gap="10px">
+        <Text fontWeight="semibold">Anonymous: </Text>
+        <Checkbox
+          size="md"
+          defaultChecked={false}
+          onChange={(e) => {
+            setAnon(e.target.checked);
+          }}
+        />
+      </Flex>
+      <Button onClick={submit} colorScheme="green">
         Confirm
       </Button>
     </Flex>

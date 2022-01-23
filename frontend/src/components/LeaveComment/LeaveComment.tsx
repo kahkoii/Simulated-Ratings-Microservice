@@ -41,7 +41,7 @@ const LeaveComment: React.FC<Props> = (props) => {
   };
 
   return (
-    <Flex height="100%" alignItems="center" justifyContent="space-between">
+    <Flex height="100%" alignItems="center" justifyContent="space-around">
       <Flex width="500px">
         <Textarea
           resize="none"
@@ -50,10 +50,8 @@ const LeaveComment: React.FC<Props> = (props) => {
           }}
         />
       </Flex>
-      <Flex>
-        <Text fontWeight="semibold" marginRight="10px">
-          Anonymous:{" "}
-        </Text>
+      <Flex gap="10px">
+        <Text fontWeight="semibold">Anonymous: </Text>
         <Checkbox
           size="md"
           defaultChecked={false}

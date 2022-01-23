@@ -1,5 +1,5 @@
+import { Flex, Button, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
 
 const MissingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -8,10 +8,29 @@ const MissingPage: React.FC = () => {
   };
 
   return (
-    <>
-      <h1>The page you are looking for does not exist</h1>
-      <Button onClick={prevPage}>Go Back</Button>
-    </>
+    <Flex
+      height="100vh"
+      flexDir="column"
+      justifyContent="center"
+      alignItems="center"
+      gap="8vh"
+    >
+      <Text fontWeight="semibold" fontSize="4xl" textAlign="center">
+        The page you are looking for does not exist
+      </Text>
+      <Flex gap="5vw">
+        <Button onClick={prevPage} size="lg" colorScheme="teal">
+          Go Back
+        </Button>
+        <Button
+          onClick={() => navigate("/feedback")}
+          size="lg"
+          colorScheme="teal"
+        >
+          Feedback Page
+        </Button>
+      </Flex>
+    </Flex>
   );
 };
 

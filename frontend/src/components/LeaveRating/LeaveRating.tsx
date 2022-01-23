@@ -27,7 +27,7 @@ const LeaveRating: React.FC<Props> = (props) => {
   };
 
   return (
-    <Flex padding="6px" alignItems="center">
+    <Flex height="100%" padding="6px" alignItems="center">
       <Alert
         isOpen={isAlertOpen}
         onClose={onClose}

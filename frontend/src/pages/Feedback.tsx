@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import RatingsReceived from "../components/RatingsReceived/RatingsReceived";
 import CommentsReceived from "../components/CommentsReceived/CommentsReceived";
 import LeaveRating from "../components/LeaveRating/LeaveRating";
+import LeaveComment from "../components/LeaveComment/LeaveComment";
 
 const Subtitle: React.FC<{ text: string }> = (prop) => (
   <Text fontWeight="medium" fontSize="lg" margin="0 0 10px 8px">
@@ -32,7 +33,7 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
       <Flex flexDir="column" height="100%" width="40%" gap="18px">
         <Flex
           flexDir="column"
-          height="75%"
+          height="69%"
           bgColor="white"
           borderRadius="20px"
           boxShadow="md"
@@ -43,7 +44,7 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
         </Flex>
         <Flex
           flexDir="column"
-          height="23%"
+          height="30%"
           bgColor="white"
           borderRadius="20px"
           boxShadow="md"
@@ -60,7 +61,7 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
       <Flex flexDir="column" width="60%" gap="18px">
         <Flex
           flexDir="column"
-          height="75%"
+          height="69%"
           bgColor="white"
           borderRadius="20px"
           boxShadow="md"
@@ -71,13 +72,18 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
         </Flex>
         <Flex
           flexDir="column"
-          height="23%"
+          height="30%"
           bgColor="white"
           borderRadius="20px"
           boxShadow="md"
           padding="16px"
         >
           <Subtitle text="Leave Comment" />
+          <LeaveComment
+            studentId={userId}
+            target="student"
+            targetId={studentId || ""}
+          />
         </Flex>
       </Flex>
     </Flex>

@@ -4,3 +4,4 @@ db/student.db
 
 # Frontend
 frontend/node_modules
+frontend/build

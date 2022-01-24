@@ -260,7 +260,7 @@ app.put("/api/v1/ratings", (req, res) => {
 });
 
 /*  Comments API */
-// 2.1 Get all comments received TODO
+// 2.1 Get all comments received
 app.get("/api/v1/comments/:target/:targetId", (req, res) => {
   // check if target is valid
   if (!["student", "tutor", "module", "class"].includes(req.params.target)) {
@@ -291,7 +291,7 @@ app.get("/api/v1/comments/:target/:targetId", (req, res) => {
   );
 });
 
-// 2.2 Get all comments sent out by a student (auth) TODO
+// 2.2 Get all comments sent out by a student (auth) TODO: auth
 app.get("/api/v1/comments/student/:studentId/sent", (req, res) => {
   if (!verifiedUser(req, res)) return;
 

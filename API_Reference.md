@@ -21,7 +21,7 @@ http://localhost:8131/api/v1/ratings/:target/:targetId
 cURL
 
 ```sh
-curl GET "localhost:8131/api/v1/ratings/student/T024681012"
+curl "localhost:8131/api/v1/ratings/student/T024681012"
 ```
 
 #### Response
@@ -62,7 +62,7 @@ This endpoint is used to get all ratings sent by the student to other students, 
 #### Endpoint URL
 
 ```url
-http://localhost:8131/api/v1/ratings/:student/:studentId/sent
+http://localhost:8131/api/v1/ratings/student/:studentId/sent
 ```
 
 #### Example Request
@@ -70,7 +70,7 @@ http://localhost:8131/api/v1/ratings/:student/:studentId/sent
 cURL
 
 ```sh
-curl GET "localhost:8131/api/v1/ratings/student/S10198765A/sent"
+curl "localhost:8131/api/v1/ratings/student/S10198765A/sent"
 ```
 
 #### Response
@@ -129,7 +129,7 @@ http://localhost:8131/api/v1/ratings
 cURL
 
 ```sh
-curl --request POST 'localhost:8131/api/v1/ratings/student' \
+curl --request POST 'localhost:8131/api/v1/ratings' \
 --header 'Content-Type: application/json' \
 --data '{
     "rating": 4,
@@ -143,7 +143,7 @@ curl --request POST 'localhost:8131/api/v1/ratings/student' \
 Windows cURL
 
 ```sh
-curl --request POST "localhost:8131/api/v1/ratings/student" --header "Content-Type: application/json" --data "{\"rating\": 4,\"studentId\": \"S10198765A\",\"target\": \"tutor\",\"targetId\": \"T024681012\",\"anonymous\": true}"
+curl --request POST "localhost:8131/api/v1/ratings" --header "Content-Type: application/json" --data "{\"rating\": 4,\"studentId\": \"S10198765A\",\"target\": \"tutor\",\"targetId\": \"T024681012\",\"anonymous\": true}"
 ```
 
 #### Response
@@ -176,7 +176,7 @@ http://localhost:8131/api/v1/ratings
 cURL
 
 ```sh
-curl --request PUT 'localhost:8131/api/v1/ratings/student' \
+curl --request PUT 'localhost:8131/api/v1/ratings' \
 --header 'Content-Type: application/json' \
 --data '{
     "id": 1,
@@ -188,7 +188,7 @@ curl --request PUT 'localhost:8131/api/v1/ratings/student' \
 Windows cURL
 
 ```sh
-curl --request PUT "localhost:8131/api/v1/ratings/student" --header "Content-Type: application/json" --data "{\"id\": 1,\"rating\": 4,\"studentId\": \"S10198765A\"}"
+curl --request PUT "localhost:8131/api/v1/ratings" --header "Content-Type: application/json" --data "{\"id\": 1,\"rating\": 4,\"studentId\": \"S10198765A\"}"
 ```
 
 #### Response
@@ -218,7 +218,7 @@ http://localhost:8131/api/v1/comments/:target/:targetId
 cURL
 
 ```sh
-curl GET "localhost:8131/api/v1/comments/module/T024681012"
+curl "localhost:8131/api/v1/comments/module/T024681012"
 ```
 
 #### Response
@@ -259,7 +259,7 @@ This endpoint is used to get all comments sent by the student to other students,
 #### Endpoint URL
 
 ```url
-http://localhost:8131/api/v1/comments/:student/:studentId/sent
+http://localhost:8131/api/v1/comments/student/:studentId/sent
 ```
 
 #### Example Request
@@ -267,7 +267,7 @@ http://localhost:8131/api/v1/comments/:student/:studentId/sent
 cURL
 
 ```sh
-curl GET "localhost:8131/api/v1/comments/student/S10198765A/sent"
+curl "localhost:8131/api/v1/comments/student/S10198765A/sent"
 ```
 
 #### Response
@@ -326,7 +326,7 @@ http://localhost:8131/api/v1/comments
 cURL
 
 ```sh
-curl --request POST 'localhost:8131/api/v1/comments/student' \
+curl --request POST 'localhost:8131/api/v1/comments' \
 --header 'Content-Type: application/json' \
 --data '{
     "comment": "git gud noob",
@@ -340,7 +340,7 @@ curl --request POST 'localhost:8131/api/v1/comments/student' \
 Windows cURL
 
 ```sh
-curl --request POST "localhost:8131/api/v1/comments/student" --header "Content-Type: application/json" --data "{\"comment\": \"git gud noob\",\"studentId\": \"S10198765A\",\"target\": \"student\",\"targetId\": \"T024681012\",\"anonymous\": true}"
+curl --request POST "localhost:8131/api/v1/comments" --header "Content-Type: application/json" --data "{\"comment\": \"git gud noob\",\"studentId\": \"S10198765A\",\"target\": \"student\",\"targetId\": \"T024681012\",\"anonymous\": true}"
 ```
 
 #### Response
@@ -373,7 +373,7 @@ http://localhost:8131/api/v1/comments
 cURL
 
 ```sh
-curl --request PUT 'localhost:8131/api/v1/comments/student' \
+curl --request PUT 'localhost:8131/api/v1/comments' \
 --header 'Content-Type: application/json' \
 --data '{
     "id": 4,
@@ -386,7 +386,7 @@ curl --request PUT 'localhost:8131/api/v1/comments/student' \
 Windows cURL
 
 ```sh
-curl --request PUT "localhost:8131/api/v1/comments/student" --header "Content-Type: application/json" --data "{\"id\": 5,\"comment\": \"SUS\",\"studentId\": \"S10198765A\",\"anonymous\": true}"
+curl --request PUT "localhost:8131/api/v1/comments" --header "Content-Type: application/json" --data "{\"id\": 5,\"comment\": \"SUS\",\"studentId\": \"S10198765A\",\"anonymous\": true}"
 ```
 
 #### Response

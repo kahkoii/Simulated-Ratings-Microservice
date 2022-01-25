@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const commentsURL = "http://localhost:8131/api/v1/comments";
+const commentsURL =
+  process.env.NODE_ENV === "production"
+    ? "http://10.31.11.11:8131/api/v1/comments"
+    : "http://localhost:8131/api/v1/comments";
 
 const apiGetComments = async (studentId: string) => {
   const res = await axios.get(`${commentsURL}/student/${studentId}`);

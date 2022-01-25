@@ -1,7 +1,10 @@
 import axios from "axios";
 import { IRating } from "../interfaces";
 
-const ratingsURL = "http://localhost:8131/api/v1/ratings";
+const ratingsURL =
+  process.env.NODE_ENV === "production"
+    ? "http://10.31.11.11:8131/api/v1/ratings"
+    : "http://localhost:8131/api/v1/ratings";
 
 const apiGetRatings = async (studentId: string) => {
   const res = await axios.get<IRating[]>(`${ratingsURL}/student/${studentId}`);

@@ -6,6 +6,8 @@
 
 This assignment splits up a monolith project into several parts, to demonstrate microservices and REST APIs in action. The section I am working on is **3.9. Rating and Comments Dashboard for Students**. For this project, my technology stack includes using [NodeJS](https://nodejs.org/en/about/) and [Express](https://expressjs.com/) for my API server, [SQLite](https://www.sqlite.org/index.html) for the database (specifically the [npm implementation](https://www.npmjs.com/package/sqlite3) of it), and the [React](https://reactjs.org/) framework with the [chakra-ui](https://chakra-ui.com/) component library for frontend.
 
+![image](https://user-images.githubusercontent.com/33172738/151199345-87b313e7-39df-4e87-8e68-ac16c855d69d.png)
+
 **For an in-depth documentation of the API, please refer to the [API Reference](API_Reference.md).**
 
 The task breakdown for this assignment is as follows:

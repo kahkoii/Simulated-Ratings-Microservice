@@ -2,10 +2,11 @@ name: Docker Hub Deployment
 
 on:
   push:
-    branches: [main]
+    tags:
+      - "v*"
 
 jobs:
-  code-tests:
+  deployment:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

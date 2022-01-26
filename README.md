@@ -1,5 +1,8 @@
 # ETI ASSIGNMENT 2
 
+![NodeJS Server CI](https://github.com/kahkoii/ETI-Assignment2/actions/workflows/CI.yaml/badge.svg)
+
+
 ## Description
 
 This assignment splits up a monolith project into several parts, and the section I am working on is **3.9. Rating and Comments Dashboard for Students**.

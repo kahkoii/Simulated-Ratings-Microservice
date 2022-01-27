@@ -1,13 +1,25 @@
 import axios from "axios";
-import { IRating } from "../interfaces";
+import { CombineRatings } from "../util/CombineTutorFeedback";
 
 const ratingsURL =
   process.env.NODE_ENV === "production"
     ? "http://10.31.11.11:8131/api/v1/ratings"
     : "http://localhost:8131/api/v1/ratings";
 
+const tutorRatingsURL =
+  process.env.NODE_ENV === "production"
+    ? "http://10.31.11.11:8181/ratings"
+    : "http://localhost:8181/ratings";
+
 const apiGetRatings = async (studentId: string) => {
-  const res = await axios.get<IRating[]>(`${ratingsURL}/student/${studentId}`);
+  const resStudent = await axios.get(`${ratingsURL}/student/${studentId}`);
+  const resTutor = await axios.get(`${tutorRatingsURL}/${studentId}`);
+  const res = CombineRatings(resStudent.data, resTutor.data);
+  return res;
+};
+
+const apiGetTutorRatings = async (studentId: string) => {
+  const res = await axios.get(`${tutorRatingsURL}/${studentId}`);
   return res;
 };
 
@@ -58,4 +70,10 @@ const apiUpdateRating = async (
   return res;
 };
 
-export { apiGetRatings, apiGetRatingsSent, apiPostRating, apiUpdateRating };
+export {
+  apiGetRatings,
+  apiGetTutorRatings,
+  apiGetRatingsSent,
+  apiPostRating,
+  apiUpdateRating,
+};

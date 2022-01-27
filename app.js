@@ -6,6 +6,7 @@ const app = express();
 const port = 8131;
 app.use(cors());
 
+// Get current DateTime in `YYYY-MM-DD hh:mm:ss` format
 const getDateTimeNow = () => {
   const now = new Date();
   const date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
@@ -14,7 +15,7 @@ const getDateTimeNow = () => {
 };
 
 /* Authentication Logic */
-// TODO: Integrate with auth system
+// TODO: Integrate with external auth microservice
 const verifiedUser = (req, res) => {
   let token = req.authToken;
   token = "";
@@ -26,16 +27,16 @@ const verifiedUser = (req, res) => {
   return false;
 };
 
+// Retrieve auth token from url
 const getToken = (req, res, next) => {
   if (req.query.auth !== undefined) {
-    // retrieve auth token from url
     req.authToken = req.query.auth;
   }
   next();
 };
 
 /* Validation Functions */
-// check if a request Content-Type is specified to be application/json
+// Check if a request Content-Type is specified to be application/json
 const reqTypeIsAppJSON = (req, res) => {
   if (req.get("Content-Type") === "application/json") {
     return true;
@@ -44,7 +45,7 @@ const reqTypeIsAppJSON = (req, res) => {
   return false;
 };
 
-// check if there are any undefined fields, returns true if any string is undefined
+// Check if there are any undefined fields, returns true if any string is undefined
 // accepts an array of objects as first param, and response object as second param
 const undefinedParamExists = (fields, res) => {
   for (let i = 0; i < fields.length; i += 1) {
@@ -56,7 +57,7 @@ const undefinedParamExists = (fields, res) => {
   return false;
 };
 
-// check if parameters provided are of type string
+// Check if parameters provided are of type string
 const isTypeString = (fields, res) => {
   for (let i = 0; i < fields.length; i += 1) {
     if (typeof fields[i] !== "string") {
@@ -69,7 +70,7 @@ const isTypeString = (fields, res) => {
   return true;
 };
 
-// check if id is valid
+// Check if id is valid
 const idIsValid = (id, res) => {
   if (typeof id === "number" && id > 0) {
     return true;
@@ -78,7 +79,7 @@ const idIsValid = (id, res) => {
   return false;
 };
 
-// check if rating value provided is valid
+// Check if rating value provided is valid
 const ratingIsValid = (rating, res) => {
   if (typeof rating === "number" && rating >= 1 && rating <= 5) {
     return true;
@@ -87,7 +88,7 @@ const ratingIsValid = (rating, res) => {
   return false;
 };
 
-// check if comment provided is valid
+// Check if comment provided is valid
 const commentIsValid = (comment, res) => {
   if (typeof comment === "string" && comment.length > 0) {
     // check for special characters
@@ -106,7 +107,7 @@ const commentIsValid = (comment, res) => {
   return false;
 };
 
-// check if target type is valid
+// Check if target type is valid
 const targetIsValid = (target, res) => {
   if (
     typeof target === "string" &&
@@ -155,8 +156,8 @@ app.get("/api/v1/ratings/:target/:targetId", (req, res) => {
             // eslint-disable-next-line no-param-reassign
             row.studentId = "";
           }
-          // eslint-disable-next-line
-          row.anonymous = row.anonymous === 1 ? true : false;
+          // convert database 1|0 to boolean
+          row.anonymous = row.anonymous === 1 ? true : false; // eslint-disable-line
           ratingList.push(row);
         });
         res.send(ratingList);
@@ -178,8 +179,8 @@ app.get("/api/v1/ratings/student/:studentId/sent", (req, res) => {
       } else {
         const ratingList = [];
         rows.forEach((row) => {
-          // eslint-disable-next-line
-          row.anonymous = row.anonymous === 1 ? true : false;
+          // convert database 1|0 to boolean
+          row.anonymous = row.anonymous === 1 ? true : false; // eslint-disable-line
           ratingList.push(row);
         });
         res.send(ratingList);
@@ -281,8 +282,8 @@ app.get("/api/v1/comments/:target/:targetId", (req, res) => {
             // eslint-disable-next-line no-param-reassign
             row.studentId = "";
           }
-          // eslint-disable-next-line
-          row.anonymous = row.anonymous === 1 ? true : false;
+          // convert database 1|0 to boolean
+          row.anonymous = row.anonymous === 1 ? true : false; // eslint-disable-line
           ratingList.push(row);
         });
         res.send(ratingList);
@@ -304,8 +305,8 @@ app.get("/api/v1/comments/student/:studentId/sent", (req, res) => {
       } else {
         const ratingList = [];
         rows.forEach((row) => {
-          // eslint-disable-next-line
-          row.anonymous = row.anonymous === 1 ? true : false;
+          // convert database 1|0 to boolean
+          row.anonymous = row.anonymous === 1 ? true : false; // eslint-disable-line
           ratingList.push(row);
         });
         res.send(ratingList);

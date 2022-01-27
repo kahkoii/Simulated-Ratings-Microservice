@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { apiGetRatingsSent, apiUpdateRating } from "../../endpoints/ratings";
-import { IRating } from "../../interfaces";
+import { IStudentRating } from "../../interfaces";
 import MinifyToDate from "../../util/MinifyDateTime";
 
 interface Props {
@@ -20,7 +20,7 @@ interface Props {
 
 const RatingsGiven: React.FC<Props> = (props) => {
   const { studentId } = props;
-  const [ratings, setRatings] = useState<IRating[]>([]);
+  const [ratings, setRatings] = useState<IStudentRating[]>([]);
 
   useEffect(() => {
     apiGetRatingsSent(studentId).then((res) => {

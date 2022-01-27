@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { BiPencil } from "react-icons/bi";
 import { apiGetCommentsSent, apiUpdateComment } from "../../endpoints/comments";
-import { IComment } from "../../interfaces";
+import { IStudentComment } from "../../interfaces";
 import CommentModal from "./CommentModal";
 import MinifyToDate from "../../util/MinifyDateTime";
 
@@ -24,7 +24,7 @@ interface Props {
 const CommentsGiven: React.FC<Props> = (props) => {
   const { studentId } = props;
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [comments, setComments] = useState<IComment[]>([]);
+  const [comments, setComments] = useState<IStudentComment[]>([]);
   const [modalId, setModalId] = useState<number>(0);
   const [modalComment, setModalComment] = useState<string>("");
   const [modalAnon, setModalAnon] = useState<boolean>(false);

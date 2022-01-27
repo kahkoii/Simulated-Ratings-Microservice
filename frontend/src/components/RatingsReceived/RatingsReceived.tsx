@@ -15,7 +15,7 @@ const RatingsReceived: React.FC<Props> = (props) => {
 
   useEffect(() => {
     apiGetRatings(studentId).then((res) => {
-      setRatings(res.data);
+      setRatings(res);
     });
   }, []);
 
@@ -41,10 +41,8 @@ const RatingsReceived: React.FC<Props> = (props) => {
                   numberOfStars={5}
                 />
               </Td>
-              <Td>
-                {rating.studentId === "" ? "Anonymous" : rating.studentId}
-              </Td>
-              <Td>{MinifyToDate(rating.dateTime)}</Td>
+              <Td>{rating.raterId === "" ? "Anonymous" : rating.raterId}</Td>
+              <Td>{MinifyToDate(rating.datetime)}</Td>
             </Tr>
           ))}
         </Tbody>

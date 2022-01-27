@@ -12,9 +12,19 @@ const tutorCommentsURL =
     : "http://localhost:8181/comments";
 
 const apiGetComments = async (studentId: string) => {
-  const resStudent = await axios.get(`${commentsURL}/student/${studentId}`);
-  const resTutor = await axios.get(`${tutorCommentsURL}/${studentId}`);
-  const res = CombineComments(resStudent.data, resTutor.data);
+  let resStudent;
+  let resTutor;
+  try {
+    resStudent = await axios.get(`${commentsURL}/student/${studentId}`);
+  } catch (err) {
+    console.error(err);
+  }
+  try {
+    resTutor = await axios.get(`${tutorCommentsURL}/${studentId}`);
+  } catch (err) {
+    console.error(err);
+  }
+  const res = CombineComments(resStudent?.data, resTutor?.data);
   return res;
 };
 

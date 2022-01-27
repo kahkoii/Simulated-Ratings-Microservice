@@ -15,6 +15,7 @@ import { BiPencil } from "react-icons/bi";
 import { apiGetCommentsSent, apiUpdateComment } from "../../endpoints/comments";
 import { IStudentComment } from "../../interfaces";
 import CommentModal from "./CommentModal";
+import { SortStudentCommentByDate } from "../../util/SortByDate";
 import MinifyToDate from "../../util/MinifyDateTime";
 
 interface Props {
@@ -31,7 +32,8 @@ const CommentsGiven: React.FC<Props> = (props) => {
 
   useEffect(() => {
     apiGetCommentsSent(studentId).then((res) => {
-      setComments(res.data);
+      const c = SortStudentCommentByDate(res.data);
+      setComments(c);
     });
   }, []);
 

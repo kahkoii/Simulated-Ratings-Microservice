@@ -28,40 +28,56 @@ const TutorRatingProcessing = (t: IRating[]): IRating[] => {
 };
 
 // Combine comments received from students and tutors
-const CombineComments = (s: IStudentComment[], t: IComment[]): IComment[] => {
-  const res = TutorCommentProcessing(t);
-  s.forEach((sc) => {
-    const comment: IComment = {
-      id: sc.id,
-      comment: sc.comment,
-      commentorId: sc.studentId,
-      commentorType: "student",
-      receiverId: sc.targetId,
-      receiverType: sc.target,
-      datetime: sc.dateTime,
-      anonymous: sc.anonymous,
-    };
-    res.push(comment);
-  });
+const CombineComments = (
+  s: IStudentComment[] | undefined,
+  t: IComment[] | undefined
+): IComment[] => {
+  let res: IComment[] = [];
+  if (t !== undefined) {
+    res = TutorCommentProcessing(t);
+  }
+  if (s !== undefined) {
+    s.forEach((sc) => {
+      const comment: IComment = {
+        id: sc.id,
+        comment: sc.comment,
+        commentorId: sc.studentId,
+        commentorType: "student",
+        receiverId: sc.targetId,
+        receiverType: sc.target,
+        datetime: sc.dateTime,
+        anonymous: sc.anonymous,
+      };
+      res.push(comment);
+    });
+  }
   return res;
 };
 
 // Combine ratings received from students and tutors
-const CombineRatings = (s: IStudentRating[], t: IRating[]): IRating[] => {
-  const res = TutorRatingProcessing(t);
-  s.forEach((sr) => {
-    const rating: IRating = {
-      id: sr.id,
-      rating: sr.rating,
-      raterId: sr.studentId,
-      raterType: "student",
-      receiverId: sr.targetId,
-      receiverType: sr.target,
-      datetime: sr.dateTime,
-      anonymous: sr.anonymous,
-    };
-    res.push(rating);
-  });
+const CombineRatings = (
+  s: IStudentRating[] | undefined,
+  t: IRating[] | undefined
+): IRating[] => {
+  let res: IRating[] = [];
+  if (t !== undefined) {
+    res = TutorRatingProcessing(t);
+  }
+  if (s !== undefined) {
+    s.forEach((sr) => {
+      const rating: IRating = {
+        id: sr.id,
+        rating: sr.rating,
+        raterId: sr.studentId,
+        raterType: "student",
+        receiverId: sr.targetId,
+        receiverType: sr.target,
+        datetime: sr.dateTime,
+        anonymous: sr.anonymous,
+      };
+      res.push(rating);
+    });
+  }
   return res;
 };
 

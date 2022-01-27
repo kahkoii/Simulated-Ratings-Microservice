@@ -12,9 +12,19 @@ const tutorRatingsURL =
     : "http://localhost:8181/ratings";
 
 const apiGetRatings = async (studentId: string) => {
-  const resStudent = await axios.get(`${ratingsURL}/student/${studentId}`);
-  const resTutor = await axios.get(`${tutorRatingsURL}/${studentId}`);
-  const res = CombineRatings(resStudent.data, resTutor.data);
+  let resStudent;
+  let resTutor;
+  try {
+    resStudent = await axios.get(`${ratingsURL}/student/${studentId}`);
+  } catch (err) {
+    console.error(err);
+  }
+  try {
+    resTutor = await axios.get(`${tutorRatingsURL}/${studentId}`);
+  } catch (err) {
+    console.error(err);
+  }
+  const res = CombineRatings(resStudent?.data, resTutor?.data);
   return res;
 };
 

@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import { apiGetRatingsSent, apiUpdateRating } from "../../endpoints/ratings";
 import { IStudentRating } from "../../interfaces";
+import { SortStudentRatingByDate } from "../../util/SortByDate";
 import MinifyToDate from "../../util/MinifyDateTime";
 
 interface Props {
@@ -24,7 +25,8 @@ const RatingsGiven: React.FC<Props> = (props) => {
 
   useEffect(() => {
     apiGetRatingsSent(studentId).then((res) => {
-      setRatings(res.data);
+      const r = SortStudentRatingByDate(res.data);
+      setRatings(r);
     });
   }, []);
 

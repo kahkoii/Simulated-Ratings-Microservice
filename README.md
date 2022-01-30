@@ -45,3 +45,17 @@ Stop Containers
 # Stop Containers
 ./deploy_scripts/linux.sh down
 ```
+
+## CI/CD Workflow Actions
+
+### ESLint Test
+
+On push to the main branch, code will be tested to ensure that it passes the ESLint linting standards.
+
+### Mocha API Testing
+
+On push to the main branch, the main API server code will be tested using the test scripts in the [test](./test) directory. These tests cover all the endpoints of the API, and the workflow only passes if all these tests pass. On the top of the README, a live tracker of the CI pass status is displayed for quick monitoring.
+
+### Docker Hub Deployment
+
+Whenever a tag with a 'v' in front is pushed to origin, the code for the frontend server and API server will be built using the various Dockerfiles specified, and the latest version of the image will be uploaded to Docker Hub, making the process of deployment easier.

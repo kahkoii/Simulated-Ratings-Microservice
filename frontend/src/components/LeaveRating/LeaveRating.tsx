@@ -21,8 +21,9 @@ const LeaveRating: React.FC<Props> = (props) => {
     if (rating === 0) {
       setIsAlertOpen(true);
     } else {
-      apiPostRating(rating, studentId, target, targetId, anon);
-      window.location.reload();
+      apiPostRating(rating, studentId, target, targetId, anon).then(() =>
+        window.location.reload()
+      );
     }
   };
 

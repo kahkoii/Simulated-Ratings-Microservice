@@ -33,8 +33,9 @@ const LeaveComment: React.FC<Props> = (props) => {
 
   const submit = (): void => {
     if (commentValid()) {
-      apiPostComment(comment, studentId, target, targetId, anon);
-      window.location.reload();
+      apiPostComment(comment, studentId, target, targetId, anon).then(() =>
+        window.location.reload()
+      );
     } else {
       setIsAlertOpen(true);
     }

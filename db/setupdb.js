@@ -10,7 +10,7 @@ db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS ratings (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      rating INTEGER NOT NULL CHECK (anonymous BETWEEN 1 AND 5),
+      rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
       studentId TEXT NOT NULL,
       target TEXT NOT NULL,
       targetId TEXT NOT NULL,

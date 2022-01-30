@@ -44,7 +44,7 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
             padding="16px"
           >
             <Subtitle text="Ratings Received" />
-            <RatingsReceived studentId={studentId || ""} />
+            <RatingsReceived ID={studentId || ""} />
           </Flex>
           <Flex
             flexDir="column"
@@ -72,7 +72,7 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
             padding="16px"
           >
             <Subtitle text="Comments Received" />
-            <CommentsReceived studentId={studentId || ""} />
+            <CommentsReceived ID={studentId || ""} />
           </Flex>
           <Flex
             flexDir="column"

@@ -6,18 +6,26 @@ import { SortGlobalCommentByDate } from "../../util/SortByDate";
 import MinifyToDate from "../../util/MinifyDateTime";
 
 interface Props {
-  studentId: string;
+  ID: string;
+  type?: string;
 }
 
 const CommentsReceived: React.FC<Props> = (props) => {
-  const { studentId } = props;
+  const { ID, type } = props;
   const [comments, setComments] = useState<IComment[]>([]);
 
   useEffect(() => {
-    apiGetComments(studentId).then((res) => {
-      const c = SortGlobalCommentByDate(res);
-      setComments(c);
-    });
+    if (type === "module" || type === "class") {
+      apiGetComments(ID, type).then((res) => {
+        const c = SortGlobalCommentByDate(res);
+        setComments(c);
+      });
+    } else {
+      apiGetComments(ID).then((res) => {
+        const c = SortGlobalCommentByDate(res);
+        setComments(c);
+      });
+    }
   }, []);
 
   return (

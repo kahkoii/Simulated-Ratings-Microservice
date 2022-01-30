@@ -11,11 +11,11 @@ const tutorCommentsURL =
     ? "http://10.31.11.11:8181/comments"
     : "http://localhost:8181/comments";
 
-const apiGetComments = async (studentId: string) => {
+const apiGetComments = async (studentId: string, type = "student") => {
   let resStudent;
   let resTutor;
   try {
-    resStudent = await axios.get(`${commentsURL}/student/${studentId}`);
+    resStudent = await axios.get(`${commentsURL}/${type}/${studentId}`);
   } catch (err) {
     console.error(err);
   }

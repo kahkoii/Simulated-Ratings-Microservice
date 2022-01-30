@@ -7,18 +7,26 @@ import { SortGlobalRatingByDate } from "../../util/SortByDate";
 import MinifyToDate from "../../util/MinifyDateTime";
 
 interface Props {
-  studentId: string;
+  ID: string;
+  type?: string;
 }
 
 const RatingsReceived: React.FC<Props> = (props) => {
-  const { studentId } = props;
+  const { ID, type } = props;
   const [ratings, setRatings] = useState<IRating[]>([]);
 
   useEffect(() => {
-    apiGetRatings(studentId).then((res) => {
-      const r = SortGlobalRatingByDate(res);
-      setRatings(r);
-    });
+    if (type === "module" || type === "class") {
+      apiGetRatings(ID, type).then((res) => {
+        const r = SortGlobalRatingByDate(res);
+        setRatings(r);
+      });
+    } else {
+      apiGetRatings(ID).then((res) => {
+        const r = SortGlobalRatingByDate(res);
+        setRatings(r);
+      });
+    }
   }, []);
 
   return (

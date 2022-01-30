@@ -11,11 +11,12 @@ const tutorRatingsURL =
     ? "http://10.31.11.11:8181/ratings"
     : "http://localhost:8181/ratings";
 
-const apiGetRatings = async (studentId: string) => {
+const apiGetRatings = async (studentId: string, type = "student") => {
   let resStudent;
   let resTutor;
   try {
-    resStudent = await axios.get(`${ratingsURL}/student/${studentId}`);
+    console.log(type);
+    resStudent = await axios.get(`${ratingsURL}/${type}/${studentId}`);
   } catch (err) {
     console.error(err);
   }

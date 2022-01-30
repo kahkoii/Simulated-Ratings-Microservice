@@ -1,15 +1,21 @@
-import { Flex, InputGroup, Input, IconButton } from "@chakra-ui/react";
+import { Flex, InputGroup, Input, Select, IconButton } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoSearch } from "react-icons/go";
 
 const Searchbar: React.FC = () => {
   const [searchField, setSearchField] = useState("");
+  const [type, setType] = useState("student");
   const navigate = useNavigate();
 
   const search = (): void => {
-    navigate(searchField);
+    if (searchField === "" || type === "student") {
+      navigate(searchField);
+    } else {
+      navigate(`${type}/${searchField}`);
+    }
   };
+
   return (
     <Flex
       marginLeft="-30px"
@@ -31,10 +37,22 @@ const Searchbar: React.FC = () => {
             }
           }}
           type="string"
-          placeholder="Search for Student ID"
-          marginRight="20px"
+          placeholder={`Search for a ${type}`}
+          marginRight="10px"
           bgColor="white"
         />
+        <Select
+          width="30%"
+          bgColor="white"
+          marginRight="14px"
+          onChange={(e) => {
+            setType(e.currentTarget.value);
+          }}
+        >
+          <option value="student">Student</option>
+          <option value="module">Module</option>
+          <option value="class">Class</option>
+        </Select>
         <IconButton
           onClick={() => search()}
           aria-label="Search"

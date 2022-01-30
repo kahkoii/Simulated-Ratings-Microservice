@@ -42,8 +42,13 @@ const LeaveComment: React.FC<Props> = (props) => {
   };
 
   return (
-    <Flex height="100%" alignItems="center" justifyContent="space-around">
-      <Flex width="500px">
+    <Flex
+      height="100%"
+      alignItems="center"
+      justifyContent="space-between"
+      padding="0 4px"
+    >
+      <Flex width="440px">
         <Textarea
           resize="none"
           onChange={(t) => {

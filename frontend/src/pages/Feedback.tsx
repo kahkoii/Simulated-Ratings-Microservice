@@ -29,61 +29,66 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
   }, []);
 
   return isValid ? (
-    <Flex height="100%" width="100%" gap="18px">
-      <Flex flexDir="column" height="100%" width="42%" gap="18px">
-        <Flex
-          flexDir="column"
-          height="69%"
-          bgColor="white"
-          borderRadius="20px"
-          boxShadow="md"
-          padding="16px"
-        >
-          <Subtitle text="Ratings Received" />
-          <RatingsReceived studentId={studentId || ""} />
+    <Flex flexDir="column" width="100%" height="100%">
+      <Text fontWeight="semibold" fontSize="3xl" margin="16px" marginLeft="0">
+        Student {studentId}'s Feedback
+      </Text>
+      <Flex height="66vh" width="100%" gap="18px">
+        <Flex flexDir="column" height="100%" width="42%" gap="18px">
+          <Flex
+            flexDir="column"
+            height="69%"
+            bgColor="white"
+            borderRadius="20px"
+            boxShadow="md"
+            padding="16px"
+          >
+            <Subtitle text="Ratings Received" />
+            <RatingsReceived studentId={studentId || ""} />
+          </Flex>
+          <Flex
+            flexDir="column"
+            height="30%"
+            bgColor="white"
+            borderRadius="20px"
+            boxShadow="md"
+            padding="16px"
+          >
+            <Subtitle text="Leave Rating" />
+            <LeaveRating
+              studentId={userId}
+              target="student"
+              targetId={studentId || ""}
+            />
+          </Flex>
         </Flex>
-        <Flex
-          flexDir="column"
-          height="30%"
-          bgColor="white"
-          borderRadius="20px"
-          boxShadow="md"
-          padding="16px"
-        >
-          <Subtitle text="Leave Rating" />
-          <LeaveRating
-            studentId={userId}
-            target="student"
-            targetId={studentId || ""}
-          />
-        </Flex>
-      </Flex>
-      <Flex flexDir="column" width="58%" gap="18px">
-        <Flex
-          flexDir="column"
-          height="69%"
-          bgColor="white"
-          borderRadius="20px"
-          boxShadow="md"
-          padding="16px"
-        >
-          <Subtitle text="Comments Received" />
-          <CommentsReceived studentId={studentId || ""} />
-        </Flex>
-        <Flex
-          flexDir="column"
-          height="30%"
-          bgColor="white"
-          borderRadius="20px"
-          boxShadow="md"
-          padding="16px"
-        >
-          <Subtitle text="Leave Comment" />
-          <LeaveComment
-            studentId={userId}
-            target="student"
-            targetId={studentId || ""}
-          />
+        <Flex flexDir="column" width="58%" gap="18px">
+          <Flex
+            flexDir="column"
+            height="69%"
+            bgColor="white"
+            borderRadius="20px"
+            boxShadow="md"
+            padding="16px"
+          >
+            <Subtitle text="Comments Received" />
+            <CommentsReceived studentId={studentId || ""} />
+          </Flex>
+          <Flex
+            flexDir="column"
+            height="30%"
+            bgColor="white"
+            borderRadius="20px"
+            boxShadow="md"
+            padding="16px"
+          >
+            <Subtitle text="Leave Comment" />
+            <LeaveComment
+              studentId={userId}
+              target="student"
+              targetId={studentId || ""}
+            />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

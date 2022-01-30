@@ -14,7 +14,7 @@ const SelfFeedback: React.FC<{ studentId: string }> = (props) => {
   const { studentId } = props;
   return (
     <Flex height="100%" width="100%" gap="18px">
-      <Flex flexDir="column" height="100%" width="40%" gap="18px">
+      <Flex flexDir="column" height="100%" width="42%" gap="18px">
         <Flex
           flexDir="column"
           height="49%"
@@ -38,7 +38,7 @@ const SelfFeedback: React.FC<{ studentId: string }> = (props) => {
           <RatingsGiven studentId={studentId} />
         </Flex>
       </Flex>
-      <Flex flexDir="column" width="60%" gap="18px">
+      <Flex flexDir="column" width="58%" gap="18px">
         <Flex
           flexDir="column"
           height="59%"

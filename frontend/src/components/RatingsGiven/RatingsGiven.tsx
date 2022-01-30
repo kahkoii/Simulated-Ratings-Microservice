@@ -23,6 +23,11 @@ const RatingsGiven: React.FC<Props> = (props) => {
   const { studentId } = props;
   const [ratings, setRatings] = useState<IStudentRating[]>([]);
 
+  const convertDateTime = (dateTime: string): string => {
+    const date = MinifyToDate(dateTime);
+    return `${date.substring(0, 4)}/${date.substring(7, 9)}`;
+  };
+
   useEffect(() => {
     apiGetRatingsSent(studentId).then((res) => {
       const r = SortStudentRatingByDate(res.data);
@@ -47,7 +52,7 @@ const RatingsGiven: React.FC<Props> = (props) => {
             <Tr key={rating.id} id={rating.id.toString()}>
               <Td>{rating.target}</Td>
               <Td>{rating.targetId}</Td>
-              <Td>{MinifyToDate(rating.dateTime)}</Td>
+              <Td>{convertDateTime(rating.dateTime)}</Td>
               <Td>
                 <StarRatings
                   rating={rating.rating}

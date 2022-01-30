@@ -30,7 +30,7 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
 
   return isValid ? (
     <Flex height="100%" width="100%" gap="18px">
-      <Flex flexDir="column" height="100%" width="40%" gap="18px">
+      <Flex flexDir="column" height="100%" width="42%" gap="18px">
         <Flex
           flexDir="column"
           height="69%"
@@ -58,7 +58,7 @@ const Feedback: React.FC<{ userId: string }> = (props) => {
           />
         </Flex>
       </Flex>
-      <Flex flexDir="column" width="60%" gap="18px">
+      <Flex flexDir="column" width="58%" gap="18px">
         <Flex
           flexDir="column"
           height="69%"

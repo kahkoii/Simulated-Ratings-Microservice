@@ -18,8 +18,7 @@ const SideNavbar: React.FC<SideNavbarProps> = (props) => {
 
   // TODO
   const power = (): void => {
-    // eslint-disable-next-line no-console
-    console.log("power button clicked");
+    window.open("http://10.31.11.11:8090/", "_self");
   };
 
   return !isMenuOpen ? (

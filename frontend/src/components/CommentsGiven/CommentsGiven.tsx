@@ -30,6 +30,8 @@ const CommentsGiven: React.FC<Props> = (props) => {
   const [modalComment, setModalComment] = useState<string>("");
   const [modalAnon, setModalAnon] = useState<boolean>(false);
 
+  const classURL = "http://10.31.11.11:8040/viewClass";
+
   useEffect(() => {
     apiGetCommentsSent(studentId).then((res) => {
       const c = SortStudentCommentByDate(res.data);
@@ -54,7 +56,17 @@ const CommentsGiven: React.FC<Props> = (props) => {
           {comments.map((comment) => (
             <Tr key={comment.id} id={comment.id.toString()}>
               <Td>{comment.target}</Td>
-              <Td>{comment.targetId}</Td>
+              <Td
+                color="blue"
+                cursor="pointer"
+                onClick={() => {
+                  if (comment.target === "class") {
+                    window.open(`${classURL}/${comment.targetId}`);
+                  }
+                }}
+              >
+                {comment.targetId}
+              </Td>
               <Td>{MinifyToDate(comment.dateTime)}</Td>
               <Td>{comment.comment}</Td>
               <Td paddingLeft="34px">

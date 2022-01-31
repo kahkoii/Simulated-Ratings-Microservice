@@ -22,6 +22,7 @@ interface Props {
 const RatingsGiven: React.FC<Props> = (props) => {
   const { studentId } = props;
   const [ratings, setRatings] = useState<IStudentRating[]>([]);
+  const classURL = "http://10.31.11.11:8040/viewClass";
 
   const convertDateTime = (dateTime: string): string => {
     const date = MinifyToDate(dateTime);
@@ -51,7 +52,17 @@ const RatingsGiven: React.FC<Props> = (props) => {
           {ratings.map((rating) => (
             <Tr key={rating.id} id={rating.id.toString()}>
               <Td>{rating.target}</Td>
-              <Td>{rating.targetId}</Td>
+              <Td
+                color="blue"
+                cursor="pointer"
+                onClick={() => {
+                  if (rating.target === "class") {
+                    window.open(`${classURL}/${rating.targetId}`);
+                  }
+                }}
+              >
+                {rating.targetId}
+              </Td>
               <Td>{convertDateTime(rating.dateTime)}</Td>
               <Td>
                 <StarRatings

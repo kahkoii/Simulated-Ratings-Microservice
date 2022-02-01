@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import SelfFeedback from "./pages/SelfFeedback";
 import Feedback from "./pages/Feedback";
 import ModuleFeedback from "./pages/ModuleFeedback";
@@ -10,20 +11,24 @@ function App() {
   let id = "";
   // Retrieve id using auth token
   id = "T024681012";
+  const [userId, setUserId] = useState(id);
 
   return (
     <Router>
       <Routes>
-        <Route path="/feedback" element={<Layout />}>
-          <Route index element={<SelfFeedback studentId={id} />} />
-          <Route path=":studentId" element={<Feedback userId={id} />} />
+        <Route
+          path="/feedback"
+          element={<Layout userId={userId} setUserId={setUserId} />}
+        >
+          <Route index element={<SelfFeedback studentId={userId} />} />
+          <Route path=":studentId" element={<Feedback userId={userId} />} />
           <Route
             path="module/:moduleId"
-            element={<ModuleFeedback userId={id} />}
+            element={<ModuleFeedback userId={userId} />}
           />
           <Route
             path="class/:classId"
-            element={<ClassFeedback userId={id} />}
+            element={<ClassFeedback userId={userId} />}
           />
         </Route>
         <Route path="*" element={<MissingPage />} />

@@ -4,7 +4,13 @@ import { VscFeedback } from "react-icons/vsc";
 import Searchbar from "../components/Searchbar/Searchbar";
 import SideNavbar from "../components/SideNavbar/SideNavbar";
 
-const Layout: React.FC = () => {
+interface Props {
+  userId: string;
+  setUserId: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Layout: React.FC<Props> = (props) => {
+  const { userId, setUserId } = props;
   const locations: [string, string, JSX.Element][] = [
     // Params: Page Name, Endpoint, Icon
     ["Feedback", "/feedback", <VscFeedback />],
@@ -30,7 +36,7 @@ const Layout: React.FC = () => {
           bgColor="#f5f5f5"
           padding="30px"
         >
-          <Searchbar />
+          <Searchbar userId={userId} setUserId={setUserId} />
           <Outlet />
         </Flex>
       </Flex>

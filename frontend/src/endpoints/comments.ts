@@ -9,7 +9,7 @@ const commentsURL =
 const tutorCommentsURL =
   process.env.NODE_ENV === "production"
     ? "http://10.31.11.11:8181/comments"
-    : "http://localhost:8181/comments";
+    : "http://localhost:8181/comments/student";
 
 const apiGetComments = async (studentId: string, type = "student") => {
   let resStudent;
@@ -20,7 +20,7 @@ const apiGetComments = async (studentId: string, type = "student") => {
     console.error(err);
   }
   try {
-    resTutor = await axios.get(`${tutorCommentsURL}/${studentId}`);
+    resTutor = await axios.get(`${tutorCommentsURL}/${studentId}?showid=0`);
   } catch (err) {
     console.error(err);
   }

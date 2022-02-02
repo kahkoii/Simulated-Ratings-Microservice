@@ -23,6 +23,13 @@ const MissingPage: React.FC = () => {
           Go Back
         </Button>
         <Button
+          onClick={() => window.open("http://10.31.11.11:8090", "_self")}
+          size="lg"
+          colorScheme="teal"
+        >
+          Login Page
+        </Button>
+        <Button
           onClick={() => navigate("/feedback")}
           size="lg"
           colorScheme="teal"

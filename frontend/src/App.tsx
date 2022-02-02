@@ -6,12 +6,15 @@ import ModuleFeedback from "./pages/ModuleFeedback";
 import ClassFeedback from "./pages/ClassFeedback";
 import MissingPage from "./pages/MissingPage";
 import Layout from "./pages/Layout";
+import getUserId from "./endpoints/auth";
 
 function App() {
-  let id = "";
+  const [userId, setUserId] = useState<string>("");
   // Retrieve id using auth token
-  id = "T024681012";
-  const [userId, setUserId] = useState(id);
+  // id being -1 means invalid login credentials or request failed
+  getUserId()
+    .then((id) => setUserId(id))
+    .catch(() => setUserId("-1"));
 
   return (
     <Router>

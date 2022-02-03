@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SelfFeedback from "./pages/SelfFeedback";
 import Feedback from "./pages/Feedback";
 import ModuleFeedback from "./pages/ModuleFeedback";
@@ -12,9 +12,11 @@ function App() {
   const [userId, setUserId] = useState<string>("");
   // Retrieve id using auth token
   // id being -1 means invalid login credentials or request failed
-  getUserId()
-    .then((id) => setUserId(id))
-    .catch(() => setUserId("-1"));
+  useEffect(() => {
+    getUserId()
+      .then((id) => setUserId(id))
+      .catch(() => setUserId("-1"));
+  }, []);
 
   return (
     <Router>

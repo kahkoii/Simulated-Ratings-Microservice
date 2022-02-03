@@ -15,7 +15,6 @@ const apiGetRatings = async (studentId: string, type = "student") => {
   let resStudent;
   let resTutor;
   try {
-    console.log(type);
     resStudent = await axios.get(`${ratingsURL}/${type}/${studentId}`);
   } catch (err) {
     console.error(err);

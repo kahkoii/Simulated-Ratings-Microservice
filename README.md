@@ -20,6 +20,24 @@ The task breakdown for this assignment is as follows:
 
 - 3.9.4. List ratings and comments given
 
+## Frontend Webpage Routes
+
+```sh
+# 1. Personal Feedback
+http://10.31.11.11:8130/feedback
+
+# 2. Other Student's Feedback
+http://10.31.11.11:8130/feedback/:studentId
+
+# 3. Module Feedback
+http://10.31.11.11:8130/feedback/module/:moduleId
+
+# 4. Class Feedback
+http://10.31.11.11:8130/feedback/class/:classId
+```
+
+Any non-matching routes will be brought to the Missing Page, where users will be prompted to either go back to the previous page, go to the login page, or go to the personal feedback page.
+
 ## Deployment Instructions
 
 ### Windows Systems

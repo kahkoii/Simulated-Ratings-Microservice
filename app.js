@@ -14,19 +14,6 @@ const getDateTimeNow = () => {
   return `${date} ${time}`;
 };
 
-/* Authentication Logic */
-// TODO: Integrate with external auth microservice
-const verifiedUser = (req, res) => {
-  let token = req.authToken;
-  token = "";
-  // check if token is valid
-  if (token !== undefined) {
-    return true;
-  }
-  res.status(401).send("Error: User not authenticated");
-  return false;
-};
-
 // Retrieve auth token from url
 const getToken = (req, res, next) => {
   if (req.query.auth !== undefined) {
@@ -166,10 +153,8 @@ app.get("/api/v1/ratings/:target/:targetId", (req, res) => {
   );
 });
 
-// 1.2 Get all ratings sent out by a student (auth) TODO: auth
+// 1.2 Get all ratings sent out by a student
 app.get("/api/v1/ratings/student/:studentId/sent", (req, res) => {
-  if (!verifiedUser(req, res)) return;
-
   getRows(
     "SELECT * FROM ratings WHERE studentId = ?;",
     [req.params.studentId],
@@ -189,11 +174,8 @@ app.get("/api/v1/ratings/student/:studentId/sent", (req, res) => {
   );
 });
 
-// 1.3 Create a new rating (auth) TODO: VERIFY SENDER
+// 1.3 Create a new rating
 app.post("/api/v1/ratings", (req, res) => {
-  if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
-    return;
-  }
   // validate body params
   const b = req.body;
   if (
@@ -221,11 +203,8 @@ app.post("/api/v1/ratings", (req, res) => {
   }
 });
 
-// 1.4 Update existing rating (auth) TODO: Implement Auth
+// 1.4 Update existing rating
 app.put("/api/v1/ratings", (req, res) => {
-  if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
-    return;
-  }
   // validate body params
   const b = req.body;
   if (
@@ -292,10 +271,8 @@ app.get("/api/v1/comments/:target/:targetId", (req, res) => {
   );
 });
 
-// 2.2 Get all comments sent out by a student (auth) TODO: auth
+// 2.2 Get all comments sent out by a student
 app.get("/api/v1/comments/student/:studentId/sent", (req, res) => {
-  if (!verifiedUser(req, res)) return;
-
   getRows(
     "SELECT * FROM comments WHERE studentId = ?;",
     [req.params.studentId],
@@ -345,11 +322,8 @@ app.post("/api/v1/comments", (req, res) => {
   }
 });
 
-// 2.4 Update existing comment (auth) TODO: Validate Auth
+// 2.4 Update existing comment
 app.put("/api/v1/comments", (req, res) => {
-  if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
-    return;
-  }
   // validate body params
   const b = req.body;
   if (

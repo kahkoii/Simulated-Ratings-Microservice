@@ -176,6 +176,9 @@ app.get("/api/v1/ratings/student/:studentId/sent", (req, res) => {
 
 // 1.3 Create a new rating
 app.post("/api/v1/ratings", (req, res) => {
+  if (!reqTypeIsAppJSON(req, res)) {
+    return;
+  }
   // validate body params
   const b = req.body;
   if (
@@ -205,6 +208,9 @@ app.post("/api/v1/ratings", (req, res) => {
 
 // 1.4 Update existing rating
 app.put("/api/v1/ratings", (req, res) => {
+  if (!reqTypeIsAppJSON(req, res)) {
+    return;
+  }
   // validate body params
   const b = req.body;
   if (
@@ -292,9 +298,9 @@ app.get("/api/v1/comments/student/:studentId/sent", (req, res) => {
   );
 });
 
-// 2.3 Create a new comment (auth)
+// 2.3 Create a new comment
 app.post("/api/v1/comments", (req, res) => {
-  if (!verifiedUser(req, res) || !reqTypeIsAppJSON(req, res)) {
+  if (!reqTypeIsAppJSON(req, res)) {
     return;
   }
   // validate body params
@@ -324,6 +330,9 @@ app.post("/api/v1/comments", (req, res) => {
 
 // 2.4 Update existing comment
 app.put("/api/v1/comments", (req, res) => {
+  if (!reqTypeIsAppJSON(req, res)) {
+    return;
+  }
   // validate body params
   const b = req.body;
   if (

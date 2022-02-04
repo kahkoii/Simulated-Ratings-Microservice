@@ -8,8 +8,8 @@ const commentsURL =
 
 const tutorCommentsURL =
   process.env.NODE_ENV === "production"
-    ? "http://10.31.11.11:8181/comments"
-    : "http://localhost:8181/comments/student";
+    ? "http://10.31.11.11:8182/comments/student"
+    : "http://localhost:8182/comments/student";
 
 const apiGetComments = async (studentId: string, type = "student") => {
   let resStudent;

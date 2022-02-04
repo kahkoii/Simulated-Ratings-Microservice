@@ -8,7 +8,7 @@ const ratingsURL =
 
 const tutorRatingsURL =
   process.env.NODE_ENV === "production"
-    ? "http://10.31.11.11:8181/ratings"
+    ? "http://10.31.11.11:8181/ratings/student"
     : "http://localhost:8181/ratings/student";
 
 const apiGetRatings = async (studentId: string, type = "student") => {

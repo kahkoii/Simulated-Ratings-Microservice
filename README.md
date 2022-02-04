@@ -104,6 +104,8 @@ The reason SQLite was chosen as the database engine for this microservice was be
 
 For the frontend, I decided to use React because it is a component-based frontend framework that serves a single-page application. The benefit of a component-based rendering system is that different sections of the website can make their own requests to various API endpoints and display the data accordingly, which allows for other components still being able to perform their functions if any one component fails, allowing the application to still run even with multiple points of failure. This is especially crucial for this assignment, since the frontend also fetches from the external API endpoints, such as login authentication and the comments and ratings given by tutors, so even if the fetch requests fail, the rest of the application can still function and display only student comments and ratings. The benefit of a single-page application is that any routing within the same domain and port can be handled by the webapp itself without making additional calls to the frontend server, reducing the overall number of requests that are made.
 
+![image](https://user-images.githubusercontent.com/33172738/152558160-a427e2e0-7988-4b81-8468-291d09bfa203.png)
+
 ## 6. CI/CD Workflow Actions
 
 ### 6.1. ESLint Test

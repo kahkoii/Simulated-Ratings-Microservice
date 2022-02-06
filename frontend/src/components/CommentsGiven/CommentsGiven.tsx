@@ -31,6 +31,7 @@ const CommentsGiven: React.FC<Props> = (props) => {
   const [modalAnon, setModalAnon] = useState<boolean>(false);
 
   const classURL = "http://10.31.11.11:8040/viewClass";
+  const moduleURL = "http://10.31.11.11:8170";
 
   useEffect(() => {
     apiGetCommentsSent(studentId).then((res) => {
@@ -62,6 +63,8 @@ const CommentsGiven: React.FC<Props> = (props) => {
                 onClick={() => {
                   if (comment.target === "class") {
                     window.open(`${classURL}/${comment.targetId}`);
+                  } else if (comment.target === "module") {
+                    window.open(`${moduleURL}?coursecode=${comment.targetId}`);
                   }
                 }}
               >

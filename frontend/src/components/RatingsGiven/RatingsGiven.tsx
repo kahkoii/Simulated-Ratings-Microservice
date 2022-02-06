@@ -23,6 +23,7 @@ const RatingsGiven: React.FC<Props> = (props) => {
   const { studentId } = props;
   const [ratings, setRatings] = useState<IStudentRating[]>([]);
   const classURL = "http://10.31.11.11:8040/viewClass";
+  const moduleURL = "http://10.31.11.11:8170";
 
   const convertDateTime = (dateTime: string): string => {
     const date = MinifyToDate(dateTime);
@@ -58,6 +59,8 @@ const RatingsGiven: React.FC<Props> = (props) => {
                 onClick={() => {
                   if (rating.target === "class") {
                     window.open(`${classURL}/${rating.targetId}`);
+                  } else if (rating.target === "module") {
+                    window.open(`${moduleURL}?coursecode=${rating.targetId}`);
                   }
                 }}
               >
